@@ -1,5 +1,5 @@
 # Masukkan semua file c Anda
-OBJS = frame_buffer.c frame_buffer_driver.c
+OBJS = frame_buffer.c draw.c draw_driver.c
 
 CC = gcc
 # COMPILER_FLAGS = -o
