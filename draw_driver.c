@@ -43,7 +43,6 @@ int main(int argc, char const *argv[])
 	drawLine(a, n, &black);
 	drawLine(a, o, &black);
 	drawLine(a, p, &black);
-	drawLine(a, q, &black);
 
 	close_buffer();
 	return 0;
