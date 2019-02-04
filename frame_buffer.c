@@ -30,7 +30,7 @@ void init ()
     // Mapping framebuffer to memory
     int screensize = vinfo.xres * vinfo.yres * vinfo.bits_per_pixel / 8;
     fbp = (char *)mmap(0, screensize, PROT_READ | PROT_WRITE, MAP_SHARED, fbfd, 0);
-    if((int)fbp == -1){
+    if(atoi(fbp) == -1){
         perror("Error: failed to map framebuffer device to memory");
         exit(4);
     }

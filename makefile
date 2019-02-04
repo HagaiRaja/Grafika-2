@@ -1,7 +1,7 @@
 # Masukkan semua file c Anda
-OBJS = frame_buffer.c draw.c draw_driver.c
+OBJS = frame_buffer.c draw.c object.cpp sample_object.cpp driver_sampleObject.cpp
 
-CC = gcc
+CC = g++
 # COMPILER_FLAGS = -o
 # LINKER_FLAGS = -lSDL2 -lSDL2_image -lSDL2_ttf
 OBJ_NAME = image
