@@ -1,3 +1,5 @@
+#include "canon.h"
+
 Canon::Canon()
 {
 	degree = 0;
@@ -9,15 +11,16 @@ Canon::Canon(point _center, color _colour) : Object (_center, _colour)
 }
 
 // update position
-void Canon::update(double _degree)
+void Canon::update()
 {
-	degree = _degree;
+	degree = 0;
 }
 
 // draw the object at given center
 void Canon::draw()
 {
-	
+	// draw the shape using line. On this example we draw rectangle
+	drawPicture("object/canon/CanonPoint.txt", this->getCenter(), this->getColor());
 }
 
 /* Setter and Getter */

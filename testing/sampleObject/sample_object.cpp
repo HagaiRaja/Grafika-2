@@ -28,22 +28,9 @@ void SampleObject::update()
 void SampleObject::draw()
 {
 	this->update();
-	// draw the shape using line. On this example we draw triangle
-	point centers = this->getCenter();
 
-	double topDotX = centers.x, topDotY = centers.y+20; 
-	double leftDotX = centers.x + 15, leftDotY = centers.y;
-	double rightDotX = centers.x - 15, rightDotY = centers.y;
-
-	point 
-	topDot = {topDotX, topDotY},
-	leftDot = {leftDotX, leftDotY},
-	rightDot = {rightDotX, rightDotY};
-	
-	color object_color = this->getColor();
-	drawLine(topDot, leftDot, &object_color);
-	drawLine(leftDot, rightDot, &object_color);
-	drawLine(rightDot, topDot, &object_color);
+	// draw the shape using line. On this example we draw rectangle
+	drawPicture("../drawPicture/sample.txt", this->getCenter(), this->getColor());
 }
 
 

@@ -10,7 +10,7 @@ public :
 	Canon(point _center, color _colour);
 
 	// update position
-    void update(double _degree);
+    void update();
     // draw the object at given center
     void draw();
 

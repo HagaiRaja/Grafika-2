@@ -1,3 +1,5 @@
+#include "bullet.h"
+
 Bullet::Bullet()
 {
 	dx = 0;
@@ -23,7 +25,10 @@ void Bullet::update()
 // draw the object at given center
 void Bullet::draw()
 {
+	this->update();
 
+	// draw the shape using line. On this example we draw rectangle
+	drawPicture("object/bullet/BulletPoint.txt", this->getCenter(), this->getColor());
 }
 
 
