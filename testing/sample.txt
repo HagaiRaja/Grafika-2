@@ -1,0 +1,15 @@
+255 255 255 0
+-100 -100
+-100 100
+100 100
+100 -100
+300 300
+400 400
+
+9999
+
+aturan penulisan :
+baris pertama RGBA color
+baris selanjutnya adalah dx dan dy
+titik acuan dari titik pusat
+lalu diakhiri dengan 9999
