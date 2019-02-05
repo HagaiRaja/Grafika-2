@@ -7,8 +7,8 @@ int main(int argc, char const *argv[])
 
 	color black = {0,0,0,255};
 	color white = {255,255,255,0};
-	set_background(&white);
-	draw_dot(100, 100, &black);
+	set_background(&black);
+	draw_dot(100, 100, &white);
 
 	close_buffer();
 	return 0;

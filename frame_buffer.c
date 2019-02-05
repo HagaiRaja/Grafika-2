@@ -59,24 +59,21 @@ void close_buffer()
     system("setterm -cursor on");
 }
 
-void draw_dot(unsigned short x, unsigned short y, color* c)
+void draw_dot(unsigned short x, unsigned short y, color* c){
 // drawing a dot on positin (x,y) with given color c
-{
 	if((x<1) || (x>SCREEN_WIDTH) || (y<1) || (y>SCREEN_HEIGHT)){
 		return ;
 	}
 
+  long int position = (x + vinfo.xoffset) * (vinfo.bits_per_pixel / 8) + (y + vinfo.yoffset) * finfo.line_length;
 
-    long int position = (x + vinfo.xoffset) * (vinfo.bits_per_pixel / 8) +
-       (y + vinfo.yoffset) * finfo.line_length;
     if(vinfo.bits_per_pixel == 32){
         *(fbp + position) = c->b;
         *(fbp + position + 1) = c->g;
         *(fbp + position + 2) = c->r;
         *(fbp + position + 3) = c->a;
     }
-    else
-    {//assume 16 bit color
+    else {//assume 16 bit color
         unsigned short b = c->b;
         unsigned short g = c->g;
         unsigned short r = c->r;
