@@ -1,7 +1,7 @@
 #ifndef SAMPLE_OBJECT_H
 #define SAMPLE_OBJECT_H
 
-#include "object.h"
+#include "../../object/object.h"
 
 /* A class to draw in screen */
 class SampleObject : public Object {

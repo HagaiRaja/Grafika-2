@@ -1,4 +1,4 @@
-#include "frame_buffer.h"
+#include "../../graphics/frame_buffer.h"
 
 int main(int argc, char const *argv[])
 {

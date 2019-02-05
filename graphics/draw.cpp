@@ -1,4 +1,4 @@
-#include "draw.h"
+#include "draw.hpp"
 
 // given a number and return the absolut value
 unsigned short absolute (double a)
@@ -13,20 +13,6 @@ unsigned short absolute (double a)
 // Implementation using bresenham algorithm
 void drawLine(point p, point q, color* c) 
 {
-	// int px = p.x, py = p.y, qx = q.x, qy = q.y;
-	// int distX, distY;
-	// do {
-	// 	distX = px - qx;
-	// 	distY = py - qy;
-	// 	if (absolute(distX) > absolute(distY)) {
-	// 		if (distX > 0) {
-
-	// 		}
-	// 	}
-	// 	else {
-
-	// 	}
-	// } while (px != qx && py != qy);
 	double px = p.x, py = p.y, qx = q.x, qy = q.y;
 	double temp;
 	
@@ -207,65 +193,50 @@ void drawLine(point p, point q, color* c)
 			}
 		}
 	}
-	
-	// unsigned char direction; 
-	// /* from p to q value between 
-	//  1. east 			5. west
-	//  2. southeast		6. northwest
-	//  3. south 			7. north 
-	//  4. southwest		8. northeast
-	// */
-
-	// if (((unsigned short) (p.x)) > q.x) 
-	// {
-	// 	if (((unsigned short) (p.y)) > q.y) {
-	// 		direction = 4;
-	// 		margin = 
-	// 	}
-	// 	else if (p.y == q.y) {
-	// 		direction = 5;
-	// 	}
-	// 	else {
-	// 		direction = 6;
-	// 	}
-	// }
-	// else if (p.x == q.x) 
-	// {
-	// 	if (p.y > q.y) {
-	// 		direction = 3;
-	// 	}
-	// 	else {
-	// 		direction = 7;
-	// 	}
-	// }
-	// else // (p.x < q.x) 
-	// {
-	// 	if (p.y > q.y) {
-	// 		direction = 2;
-	// 	}
-	// 	else if (p.y == q.y) {
-	// 		direction = 1;
-	// 	}
-	// 	else {
-	// 		direction = 8;
-	// 	}
-	// }
 }
  
-// Drawing Canon with given center point with line color c
-void drawCanon(point center, color* c)
+// drawing a picture by given dots and color from filename
+// and draw it relatively from given center point
+// for file specs open sample.txt
+void drawPicture (string filename, point center)
 {
+	string line;
+	ifstream imageFile;
+	imageFile.open(filename, ios::in);
+	if (imageFile.is_open())
+	{
+		int r,g,b,a;
 
-}
+		imageFile >> r >> g >> b >> a;
+		color c = {(unsigned char) r, (unsigned char) g, (unsigned char) b, (unsigned char) a};
+		// cout << r << " " << g << " " << b << " " << a << endl;
+		double dx, dy;
+		point now, prev, first;
+		// first point
+		imageFile >> dx >> dy;
+		now.x = center.x + dx;
+		now.y = center.y + dy;
+		first = now;
+		do {
+			// read new point
+			imageFile >> dx >> dy;
 
-// Drawing Bullet with given center point with line color c
-void drawBullet(point center, color* c)
-{
+			// draw line
+			if (dx == 9999) {
+				// end of line
+				drawLine(now, first, &c);
+			}
+			else {
+				// updating point
+				prev = now;	
+				now.x = center.x + dx;
+				now.y = center.y + dy;
+				drawLine(prev, now, &c);
+			}
+		} while (dx != 9999);
+		
 
-}
-
-// Drawing Plane with given center point with line color c
-void drawPlane(point center, color* c)
-{
-
+		imageFile.close();
+	}
+	else cout << "Unable to open file"; 
 }

@@ -1,7 +1,7 @@
 #ifndef OBJECT_HPP
 #define OBJECT_HPP
 
-#include "draw.h"
+#include "../graphics/draw.hpp"
 
 class Object {
 	public :
