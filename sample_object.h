@@ -7,7 +7,7 @@
 class SampleObject : public Object {
 public :
 	SampleObject();
-	SampleObject(point _center, color _colour, signed short _dx, signed short _dy);
+	SampleObject(point _center, color _colour, double _dx, double _dy);
 
 	// update position
     void update();
@@ -15,14 +15,14 @@ public :
     void draw();
 
 	/* Setter and Getter */
-	signed short getDx() const;
-	void setDx(signed short i);
-	signed short getDy() const;
-	void setDy(signed short i);
+	double getDx() const;
+	void setDx(double i);
+	double getDy() const;
+	void setDy(double i);
 
 private :
 	// x and y velocity of the sample object
-	signed short dx, dy;
+	double dx, dy;
 };
 
 #endif

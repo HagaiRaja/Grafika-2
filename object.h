@@ -7,22 +7,21 @@ class Object {
 	public :
 	// ctor and dtor
 	Object();
-	Object(point p, color *c);
-	Object(point& p, color& c);
+	Object(point p, color c);
 	// update position
-    void update();
+    virtual void update() = 0;
     // draw the object at given center
-    void draw();
+    virtual void draw() = 0;
 
     // setter and getter
     point getCenter();
     void setCenter(point p);
-    color* getColor();
-    void setColor(color* p);
+    color getColor();
+    void setColor(color p);
 
     private :
     point center;
-    color *colour;
+    color colour;
 };
 
 #endif

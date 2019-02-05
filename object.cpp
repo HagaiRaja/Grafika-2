@@ -6,18 +6,13 @@ Object::Object()
 	point temp = {0,0};
 	color white = {255,255,255,0};
 	center = temp;
-	colour = &white;
+	colour = white;
 }
 
-Object::Object(point p, color *c)
+Object::Object(point p, color c)
 {
 	center = p;
 	colour = c;
-}
-
-Object::Object(point& p, color& c) {
-	center = p;
-	colour = &c;	
 }
 
 // setter and getter
@@ -31,12 +26,12 @@ void Object::setCenter(point p)
 	center = p;
 }
 
-color* Object::getColor()
+color Object::getColor()
 {
 	return colour;
 }
 
-void Object::setColor(color *p)
+void Object::setColor(color p)
 {
 	colour = p;
 }

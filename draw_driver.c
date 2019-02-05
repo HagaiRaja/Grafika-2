@@ -9,8 +9,8 @@ int main(int argc, char const *argv[])
 	color white = {255,255,255,0};
 	set_background(&black);
 
-	unsigned short translateX = 300;
-	unsigned short translateY = SCREEN_HEIGHT - 500;
+	double translateX = 300;
+	double translateY = SCREEN_HEIGHT - 500;
 
 	point a = {300 + translateX,300+ translateY};
 	point b = {300 + translateX,200+ translateY};

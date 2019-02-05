@@ -6,7 +6,7 @@
 #include "frame_buffer.h"
 
 typedef struct{
-    unsigned short x, y;
+    double x, y;
 } point;
 
 // Drawing line from point p to point q with given color c

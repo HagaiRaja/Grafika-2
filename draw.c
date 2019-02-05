@@ -30,19 +30,19 @@ void drawLine(point p, point q, color* c)
 	double px = p.x, py = p.y, qx = q.x, qy = q.y;
 	double temp;
 	
-	if (p.x == q.x) { // infinity margin
-		if (p.y > q.y) {
+	if (((unsigned short) (p.x)) == ((unsigned short) (q.x))) { // infinity margin
+		if (((unsigned short) (p.y)) > ((unsigned short) (q.y))) {
 			for (unsigned short i = 0; i < absolute(py - qy); ++i)
 			{
 				/* code */
-				draw_dot(p.x, p.y-i, c);
+				draw_dot(((unsigned short) (p.x)), ((unsigned short) (p.y))-i, c);
 			}
 		}
 		else {
 			for (unsigned short i = 0; i < absolute(py - qy); ++i)
 			{
 				/* code */
-				draw_dot(p.x, p.y+i, c);
+				draw_dot(((unsigned short) (p.x)), ((unsigned short) (p.y))+i, c);
 			}
 		}
 	}
@@ -52,8 +52,8 @@ void drawLine(point p, point q, color* c)
 			double newMargin = 1 / margin;
 			temp = newMargin;
 
-			draw_dot(p.x, p.y, c);
-			if (p.y > q.y) {
+			draw_dot(((unsigned short) (p.x)), ((unsigned short) (p.y)), c);
+			if (((unsigned short) (p.y)) > ((unsigned short) (q.y))) {
 				do {
 					p.y -= 1;
 					if (temp > 1) {
@@ -61,8 +61,8 @@ void drawLine(point p, point q, color* c)
 						p.x -= 1;
 					}
 					temp += newMargin;
-					draw_dot(p.x, p.y, c);
-				} while (p.x != q.x && p.y != q.y);
+					draw_dot(((unsigned short) (p.x)), ((unsigned short) (p.y)), c);
+				} while ((p.x != q.x) && (p.y != q.y));
 			}
 			else {
 				do {
@@ -72,16 +72,16 @@ void drawLine(point p, point q, color* c)
 						p.x += 1;
 					}
 					temp += newMargin;
-					draw_dot(p.x, p.y, c);
-				} while (p.x != q.x && p.y != q.y);
+					draw_dot(((unsigned short) (p.x)), ((unsigned short) (p.y)), c);
+				} while ((p.x != q.x) && (p.y != q.y));
 			}
 		}
 		else if (margin < -1) {
 			double newMargin = 1 / margin;
 			temp = newMargin;
 
-			draw_dot(p.x, p.y, c);
-			if (p.y > q.y) {
+			draw_dot(((unsigned short) (p.x)), ((unsigned short) (p.y)), c);
+			if (((unsigned short) (p.y)) > ((unsigned short) (q.y))) {
 				do {
 					p.y -= 1;
 					if (temp < -1) {
@@ -89,8 +89,8 @@ void drawLine(point p, point q, color* c)
 						p.x += 1;
 					}
 					temp += newMargin;
-					draw_dot(p.x, p.y, c);
-				} while (p.x != q.x && p.y != q.y);
+					draw_dot(((unsigned short) (p.x)), ((unsigned short) (p.y)), c);
+				} while ((p.x != q.x) && (p.y != q.y));
 			}
 			else {
 				do {
@@ -100,47 +100,47 @@ void drawLine(point p, point q, color* c)
 						p.x -= 1;
 					}
 					temp += newMargin;
-					draw_dot(p.x, p.y, c);
-				} while (p.x != q.x && p.y != q.y);
+					draw_dot(((unsigned short) (p.x)), ((unsigned short) (p.y)), c);
+				} while ((p.x != q.x) && (p.y != q.y));
 			}
 		}
 		else if (margin == 1) {
-			if (p.y > q.y) {
+			if (((unsigned short) (p.y)) > ((unsigned short) (q.y))) {
 				for (unsigned short i = 0; i < absolute(py - qy); ++i)
 				{
 					/* code */
-					draw_dot(p.x-i, p.y-i, c);
+					draw_dot(((unsigned short) (p.x))-i, ((unsigned short) (p.y))-i, c);
 				}
 			}
 			else {
 				for (unsigned short i = 0; i < absolute(py - qy); ++i)
 				{
 					/* code */
-					draw_dot(p.x+i, p.y+i, c);
+					draw_dot(((unsigned short) (p.x))+i, ((unsigned short) (p.y))+i, c);
 				}
 			}
 		}
 		else if (margin == -1) {
-			if (p.y > q.y) {
+			if (((unsigned short) (p.y)) > ((unsigned short) (q.y))) {
 				for (unsigned short i = 0; i < absolute(py - qy); ++i)
 				{
 					/* code */
-					draw_dot(p.x+i, p.y-i, c);
+					draw_dot(((unsigned short) (p.x))+i, ((unsigned short) (p.y))-i, c);
 				}
 			}
 			else {
 				for (unsigned short i = 0; i < absolute(py - qy); ++i)
 				{
 					/* code */
-					draw_dot(p.x-i, p.y+i, c);
+					draw_dot(((unsigned short) (p.x))-i, ((unsigned short) (p.y))+i, c);
 				}
 			}
 		}
 		else if (margin > -1 && margin < 0) {
 			temp = margin;
 
-			draw_dot(p.x, p.y, c);
-			if (p.y > q.y) {
+			draw_dot(((unsigned short) (p.x)), ((unsigned short) (p.y)), c);
+			if (((unsigned short) (p.y)) > ((unsigned short) (q.y))) {
 				do {
 					p.x += 1;
 					if (temp < -1) {
@@ -148,8 +148,8 @@ void drawLine(point p, point q, color* c)
 						p.y -= 1;
 					}
 					temp += margin;
-					draw_dot(p.x, p.y, c);
-				} while (p.x != q.x && p.y != q.y);
+					draw_dot(((unsigned short) (p.x)), ((unsigned short) (p.y)), c);
+				} while ((p.x != q.x) && (p.y != q.y));
 			}
 			else {
 				do {
@@ -159,15 +159,15 @@ void drawLine(point p, point q, color* c)
 						p.y += 1;
 					}
 					temp += margin;
-					draw_dot(p.x, p.y, c);
-				} while (p.x != q.x && p.y != q.y);
+					draw_dot(((unsigned short) (p.x)), ((unsigned short) (p.y)), c);
+				} while ((p.x != q.x) && (p.y != q.y));
 			}
 		}
 		else if (margin < 1 && margin > 0) {
 			temp = margin;
 
-			draw_dot(p.x, p.y, c);
-			if (p.y > q.y) {
+			draw_dot(((unsigned short) (p.x)), ((unsigned short) (p.y)), c);
+			if (((unsigned short) (p.y)) > ((unsigned short) (q.y))) {
 				do {
 					p.x -= 1;
 					if (temp > 1) {
@@ -175,8 +175,8 @@ void drawLine(point p, point q, color* c)
 						p.y -= 1;
 					}
 					temp += margin;
-					draw_dot(p.x, p.y, c);
-				} while (p.x != q.x && p.y != q.y);
+					draw_dot(((unsigned short) (p.x)), ((unsigned short) (p.y)), c);
+				} while ((p.x != q.x) && (p.y != q.y));
 			}
 			else {
 				do {
@@ -186,23 +186,23 @@ void drawLine(point p, point q, color* c)
 						p.y += 1;
 					}
 					temp += margin;
-					draw_dot(p.x, p.y, c);
-				} while (p.x != q.x && p.y != q.y);
+					draw_dot(((unsigned short) (p.x)), ((unsigned short) (p.y)), c);
+				} while ((p.x != q.x) && (p.y != q.y));
 			}
 		}
 		else { // margin 0 
-			if (p.x > q.x) {
+			if (((unsigned short) (p.x)) > ((unsigned short) (q.x))) {
 				for (unsigned short i = 0; i < absolute(px - qx); ++i)
 				{
 					/* code */
-					draw_dot(p.x-i, p.y, c);
+					draw_dot(((unsigned short) (p.x))-i, ((unsigned short) (p.y)), c);
 				}
 			}
 			else {
 				for (unsigned short i = 0; i < absolute(px - qx); ++i)
 				{
 					/* code */
-					draw_dot(p.x+i, p.y, c);
+					draw_dot(((unsigned short) (p.x))+i, ((unsigned short) (p.y)), c);
 				}
 			}
 		}
@@ -216,9 +216,9 @@ void drawLine(point p, point q, color* c)
 	//  4. southwest		8. northeast
 	// */
 
-	// if (p.x > q.x) 
+	// if (((unsigned short) (p.x)) > q.x) 
 	// {
-	// 	if (p.y > q.y) {
+	// 	if (((unsigned short) (p.y)) > q.y) {
 	// 		direction = 4;
 	// 		margin = 
 	// 	}

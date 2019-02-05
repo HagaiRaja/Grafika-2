@@ -8,7 +8,7 @@ SampleObject::SampleObject()
 	dy = 1;
 }
 
-SampleObject::SampleObject(point _center, color _colour, signed short _dx, signed short _dy) : Object (_center, _colour)
+SampleObject::SampleObject(point _center, color _colour, double _dx, double _dy) : Object (_center, _colour)
 {
 	dx = _dx;
 	dy = _dy;
@@ -31,38 +31,39 @@ void SampleObject::draw()
 	// draw the shape using line. On this example we draw triangle
 	point centers = this->getCenter();
 
-	int topDotX = centers.x, topDotY = centers.y+20; 
-	int leftDotX = centers.x + 15, leftDotY = centers.y;
-	int rightDotX = centers.x - 15, rightDotY = centers.y;
+	double topDotX = centers.x, topDotY = centers.y+20; 
+	double leftDotX = centers.x + 15, leftDotY = centers.y;
+	double rightDotX = centers.x - 15, rightDotY = centers.y;
 
 	point 
 	topDot = {topDotX, topDotY},
 	leftDot = {leftDotX, leftDotY},
 	rightDot = {rightDotX, rightDotY};
 	
-	drawLine(topDot, leftDot, this->getColor());
-	drawLine(leftDot, rightDot, this->getColor());
-	drawLine(rightDot, topDot, this->getColor());
+	color object_color = this->getColor();
+	drawLine(topDot, leftDot, &object_color);
+	drawLine(leftDot, rightDot, &object_color);
+	drawLine(rightDot, topDot, &object_color);
 }
 
 
 /* Setter and Getter */
-signed short SampleObject::getDx() const
+double SampleObject::getDx() const
 {
 	return dx;
 }
 
-void SampleObject::setDx(signed short i)
+void SampleObject::setDx(double i)
 {
 	dx = i;
 }
 
-signed short SampleObject::getDy() const
+double SampleObject::getDy() const
 {
 	return dy;
 }
 
-void SampleObject::setDy(signed short i)
+void SampleObject::setDy(double i)
 {
 	dy = i;
 }
