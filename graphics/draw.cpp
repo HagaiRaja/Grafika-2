@@ -198,18 +198,13 @@ void drawLine(point p, point q, color* c)
 // drawing a picture by given dots and color from filename
 // and draw it relatively from given center point
 // for file specs open sample.txt
-void drawPicture (string filename, point center)
+void drawPicture (string filename, point center, color c)
 {
 	string line;
 	ifstream imageFile;
 	imageFile.open(filename, ios::in);
 	if (imageFile.is_open())
 	{
-		int r,g,b,a;
-
-		imageFile >> r >> g >> b >> a;
-		color c = {(unsigned char) r, (unsigned char) g, (unsigned char) b, (unsigned char) a};
-		// cout << r << " " << g << " " << b << " " << a << endl;
 		double dx, dy;
 		point now, prev, first;
 		// first point
