@@ -1,5 +1,5 @@
 # Masukkan semua file c Anda
-OBJS = frame_buffer.c draw.c object.cpp sample_object.cpp driver_sampleObject.cpp
+OBJS = frame_buffer.c draw.c draw_driver.c
 
 CC = g++
 # COMPILER_FLAGS = -o

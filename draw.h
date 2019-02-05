@@ -21,5 +21,6 @@ void drawBullet(point center, color* c);
 // Drawing Plane with given center point with line color c
 void drawPlane(point center, color* c);
 
+void rasterObject(point ctPoints[], color* c);
 #endif
 
