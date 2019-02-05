@@ -295,8 +295,8 @@ void rasterObject(point ctPoints[], color* c){
 	int drawMode = 1; // mode 0 = passing by, mode 1 = coloring
 
 	// Start rastering
-	for (unsigned char i=xmin+1; i>xmax; i++){
-		for (unsigned char j=ymin+1; j>ymax; j++){
+	for (unsigned char i=xmin+1; i<xmax; i++){
+		for (unsigned char j=ymin+1; j<ymax; j++){
 			if (isColored(i,j)){
 				//check if it's (titik anomali)
 				if ((!isColored(i-1,j-1) && !isColored(i,j-1) && !isColored(i+1,j-1)) || (!isColored(i-1,j+1) && !isColored(i,j+1) && !isColored(i+1,j+1))){
