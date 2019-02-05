@@ -21,7 +21,9 @@ int main(int argc, char const *argv[])
 	// ctPoints[0].x = 300;
 	point a = {ctPoints[0].x + translateX,ctPoints[0].x+ translateY};
 	point b = {ctPoints[0].x+500 + translateX,ctPoints[0].x+ translateY};
-	drawLine(a, b, &blue);
+	point p = {400,400};
+	point q = {400,200};
+	drawLine(p, q, &blue);
 	rasterObject(ctPoints, &green);
 
 

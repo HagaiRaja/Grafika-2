@@ -271,8 +271,8 @@ void drawPlane(point center, color* c)
 }
 
 int isColored(unsigned char x, unsigned char y){
-	// return !(c->r == background->r && c->g == background->g && c->b == background->b);
-	return 0;
+	color c = getPixelColor(x,y);
+	return !(c.r == 0 && c.g == 0 && c.b == 0);
 }
 
 void rasterObject(point ctPoints[], color* c){
@@ -293,11 +293,12 @@ void rasterObject(point ctPoints[], color* c){
 	}
 
 	int drawMode = 0; // mode 0 = passing by, mode 1 = coloring
-	unsigned char i = 5;
-	unsigned char j = 5;
+	unsigned char i;
+	unsigned char j;
+
 	// Start rastering
-	for (i=10; i<500; i++){
-		for (j=5; j<500; j++){
+	for (j=ymin+1; j<ymax; j++){
+		for (i=xmin+1; i<xmax; i++){
 			if (isColored(i,j)){
 				//check if it's (titik anomali)
 				if ((!isColored(i-1,j-1) && !isColored(i,j-1) && !isColored(i+1,j-1)) || (!isColored(i-1,j+1) && !isColored(i,j+1) && !isColored(i+1,j+1))){
