@@ -292,11 +292,12 @@ void rasterObject(point ctPoints[], color* c){
 			ymax = ctPoints[i].y;
 	}
 
-	int drawMode = 1; // mode 0 = passing by, mode 1 = coloring
-
+	int drawMode = 0; // mode 0 = passing by, mode 1 = coloring
+	unsigned char i = 5;
+	unsigned char j = 5;
 	// Start rastering
-	for (unsigned char i=xmin+1; i<xmax; i++){
-		for (unsigned char j=ymin+1; j<ymax; j++){
+	for (i=10; i<500; i++){
+		for (j=5; j<500; j++){
 			if (isColored(i,j)){
 				//check if it's (titik anomali)
 				if ((!isColored(i-1,j-1) && !isColored(i,j-1) && !isColored(i+1,j-1)) || (!isColored(i-1,j+1) && !isColored(i,j+1) && !isColored(i+1,j+1))){
@@ -310,6 +311,7 @@ void rasterObject(point ctPoints[], color* c){
 			if (drawMode)
 				draw_dot(i,j,c);
 		}
+
 	}
 
 }
