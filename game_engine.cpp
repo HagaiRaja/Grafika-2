@@ -8,19 +8,20 @@ using namespace std;
 int main(int argc, char const *argv[])
 {
 	init();
-	init_sdl();
+	// init_sdl();
 
 	list<Object*> ListObject;
 	bool running = true;
 	bool exit = false;
 
-	point center = {400,400};
+	point top = {200,100};
+	point bottom_center = {SCREEN_WIDTH/2,SCREEN_HEIGHT - 50};
 	color black = {0,0,0,0};
 	color white = {255,255,255,0};
 	set_background(&black);
 
-	Canon* canon = new Canon(center, white);
-	Airplane* airplane = new Airplane(center, white, -1);
+	Canon* canon = new Canon(bottom_center, white);
+	Airplane* airplane = new Airplane(top, white, -1);
 
 	ListObject.push_back(canon);
 	ListObject.push_front(airplane);
@@ -29,26 +30,26 @@ int main(int argc, char const *argv[])
 	// ++it;
 	// (*it)->draw();
 	while (running && !exit) {
-		handle_input();
-        if (quit_pressed()) {
-            running = true;
-        }
+		// handle_input();
+  //       if (quit_pressed()) {
+  //           running = true;
+  //       }
 
-		// Update input from keyboard
-        for (auto key : get_tapped_keys()) {
-        	cout << "halo" << endl;
-            switch (key) {
-            	case SDLK_RIGHT :
-					cout << "kanan" << endl;
-					break;
-				case SDLK_LEFT :
-					cout << "kiri" << endl;
-					break;
-				case SDLK_SPACE :
-					cout << "fire" << endl;
-					break;
-        	}
-        }
+		// // Update input from keyboard
+  //       for (auto key : get_tapped_keys()) {
+  //       	cout << "halo" << endl;
+  //           switch (key) {
+  //           	case SDLK_RIGHT :
+		// 			cout << "kanan" << endl;
+		// 			break;
+		// 		case SDLK_LEFT :
+		// 			cout << "kiri" << endl;
+		// 			break;
+		// 		case SDLK_SPACE :
+		// 			cout << "fire" << endl;
+		// 			break;
+  //       	}
+  //       }
 
 		// Drawing object
         for (list<Object*>::iterator it=ListObject.begin(); it!=ListObject.end(); ++it)
@@ -60,6 +61,6 @@ int main(int argc, char const *argv[])
 
 	
 	close_buffer();
-	close_sdl();
+	// close_sdl();
 	return 0;
 }
