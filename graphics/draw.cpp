@@ -195,43 +195,33 @@ void drawLine(point p, point q, color* c)
 	}
 }
  
-// drawing a picture by given dots and color from filename
+// drawing a picture by given dots from drawPoint
 // and draw it relatively from given center point
-// for file specs open sample.txt
-void drawPicture (string filename, point center, color c)
+void drawPicture (list<point> drawPoint, point center, color c)
 {
-	string line;
-	ifstream imageFile;
-	imageFile.open(filename, ios::in);
-	if (imageFile.is_open())
-	{
-		double dx, dy;
-		point now, prev, first;
-		// first point
-		imageFile >> dx >> dy;
-		now.x = center.x + dx;
-		now.y = center.y + dy;
-		first = now;
-		do {
-			// read new point
-			imageFile >> dx >> dy;
+	point now, prev, first;
+	list<point>::iterator it = drawPoint.begin();
+	list<point>::iterator end = drawPoint.end();
 
-			// draw line
-			if (dx == 9999) {
-				// end of line
-				drawLine(now, first, &c);
-			}
-			else {
-				// updating point
-				prev = now;	
-				now.x = center.x + dx;
-				now.y = center.y + dy;
-				drawLine(prev, now, &c);
-			}
-		} while (dx != 9999);
-		
+	// first point
+	now.x = center.x + (*it).x;
+	now.y = center.y + (*it).y;
+	first = now;
+	do {
+		// read new point
+		++it;
 
-		imageFile.close();
-	}
-	else cout << "Unable to open file"; 
+		// draw line
+		if (it == end) {
+			// end of line
+			drawLine(now, first, &c);
+		}
+		else {
+			// updating point
+			prev = now;	
+			now.x = center.x + (*it).x;
+			now.y = center.y + (*it).y;
+			drawLine(prev, now, &c);
+		}
+	} while (it != end);
 }

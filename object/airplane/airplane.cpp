@@ -5,7 +5,7 @@ Airplane::Airplane()
 	dx = 1;
 }
 
-Airplane::Airplane(point _center, color _colour, double _dx) : Object (_center, _colour)
+Airplane::Airplane(point _center, color _colour, double _dx) : Object (_center, _colour, "object/airplane/PlanePoint.txt")
 {
 	dx = _dx;
 }
@@ -27,7 +27,7 @@ void Airplane::draw()
 	this->update();
 
 	// draw the shape using line. On this example we draw rectangle
-	drawPicture("object/airplane/PlanePoint.txt", this->getCenter(), this->getColor());
+	drawPicture(this->getDrawPoint(), this->getCenter(), this->getColor());
 }
 
 

@@ -6,7 +6,7 @@ Bullet::Bullet()
 	dy = -1;
 }
 
-Bullet::Bullet(point _center, color _colour, double _dx, double _dy) : Object (_center, _colour)
+Bullet::Bullet(point _center, color _colour, double _dx, double _dy) : Object (_center, _colour, "object/bullet/BulletPoint.txt")
 {
 	dx = _dx;
 	dy = _dy;
@@ -28,7 +28,7 @@ void Bullet::draw()
 	this->update();
 
 	// draw the shape using line. On this example we draw rectangle
-	drawPicture("object/bullet/BulletPoint.txt", this->getCenter(), this->getColor());
+	drawPicture(this->getDrawPoint(), this->getCenter(), this->getColor());
 }
 
 

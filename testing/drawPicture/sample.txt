@@ -1,17 +1,11 @@
-0 -25
--20 -10
--15 20
-15 20
-20 -10
--10 -10
--10 5
-10 5
-0 10
+100 100
+-100 100
+-100 -100
+100 -100
 
 9999
 
-aturan penulisan :
-baris pertama RGBA color
-baris selanjutnya adalah dx dan dy
-titik acuan dari titik pusat
-lalu diakhiri dengan 9999
+RULE :
+Fill the dx and dy from center point
+then end the dx dy pair with a single 
+9999 like the above sample

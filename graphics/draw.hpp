@@ -5,8 +5,7 @@
 
 #include "frame_buffer.h"
 #include <iostream>
-#include <fstream>
-#include <string>
+#include <list>
 using namespace std;
 
 typedef struct{
@@ -16,10 +15,9 @@ typedef struct{
 // Drawing line from point p to point q with given color c
 void drawLine(point p, point q, color* c);
 
-// drawing a picture by given dots and color from filename
+// drawing a picture by given dots from drawPoint
 // and draw it relatively from given center point
-// for file specs open sample.txt
-void drawPicture (string filename, point center, color c);
+void drawPicture (list<point> drawPoint, point center, color c);
 
 
 #endif

@@ -5,7 +5,7 @@ Canon::Canon()
 	degree = 0;
 }
 
-Canon::Canon(point _center, color _colour) : Object (_center, _colour)
+Canon::Canon(point _center, color _colour) : Object (_center, _colour, "object/canon/CanonPoint.txt")
 {
 	degree = 0;
 }
@@ -20,7 +20,7 @@ void Canon::update()
 void Canon::draw()
 {
 	// draw the shape using line. On this example we draw rectangle
-	drawPicture("object/canon/CanonPoint.txt", this->getCenter(), this->getColor());
+	drawPicture(this->getDrawPoint(), this->getCenter(), this->getColor());
 }
 
 /* Setter and Getter */
