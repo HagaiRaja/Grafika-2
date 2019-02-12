@@ -48,7 +48,7 @@ void drawLine(point p, point q, color* c)
 					}
 					temp += newMargin;
 					draw_dot(((unsigned short) (p.x)), ((unsigned short) (p.y)), c);
-				} while ((p.x != q.x) && (p.y != q.y));
+				} while ((((unsigned short) (p.x)) != ((unsigned short) (q.x))) && (((unsigned) (p.y)) != ((unsigned short) (q.y))));
 			}
 			else {
 				do {
@@ -59,7 +59,7 @@ void drawLine(point p, point q, color* c)
 					}
 					temp += newMargin;
 					draw_dot(((unsigned short) (p.x)), ((unsigned short) (p.y)), c);
-				} while ((p.x != q.x) && (p.y != q.y));
+				} while ((((unsigned short) (p.x)) != ((unsigned short) (q.x))) && (((unsigned) (p.y)) != ((unsigned short) (q.y))));
 			}
 		}
 		else if (margin < -1) {
@@ -76,7 +76,7 @@ void drawLine(point p, point q, color* c)
 					}
 					temp += newMargin;
 					draw_dot(((unsigned short) (p.x)), ((unsigned short) (p.y)), c);
-				} while ((p.x != q.x) && (p.y != q.y));
+				} while ((((unsigned short) (p.x)) != ((unsigned short) (q.x))) && (((unsigned) (p.y)) != ((unsigned short) (q.y))));
 			}
 			else {
 				do {
@@ -87,7 +87,7 @@ void drawLine(point p, point q, color* c)
 					}
 					temp += newMargin;
 					draw_dot(((unsigned short) (p.x)), ((unsigned short) (p.y)), c);
-				} while ((p.x != q.x) && (p.y != q.y));
+				} while ((((unsigned short) (p.x)) != ((unsigned short) (q.x))) && (((unsigned) (p.y)) != ((unsigned short) (q.y))));
 			}
 		}
 		else if (margin == 1) {
@@ -135,7 +135,7 @@ void drawLine(point p, point q, color* c)
 					}
 					temp += margin;
 					draw_dot(((unsigned short) (p.x)), ((unsigned short) (p.y)), c);
-				} while ((p.x != q.x) && (p.y != q.y));
+				} while ((((unsigned short) (p.x)) != ((unsigned short) (q.x))) && (((unsigned) (p.y)) != ((unsigned short) (q.y))));
 			}
 			else {
 				do {
@@ -146,7 +146,7 @@ void drawLine(point p, point q, color* c)
 					}
 					temp += margin;
 					draw_dot(((unsigned short) (p.x)), ((unsigned short) (p.y)), c);
-				} while ((p.x != q.x) && (p.y != q.y));
+				} while ((((unsigned short) (p.x)) != ((unsigned short) (q.x))) && (((unsigned) (p.y)) != ((unsigned short) (q.y))));
 			}
 		}
 		else if (margin < 1 && margin > 0) {
@@ -162,7 +162,7 @@ void drawLine(point p, point q, color* c)
 					}
 					temp += margin;
 					draw_dot(((unsigned short) (p.x)), ((unsigned short) (p.y)), c);
-				} while ((p.x != q.x) && (p.y != q.y));
+				} while ((((unsigned short) (p.x)) != ((unsigned short) (q.x))) && (((unsigned) (p.y)) != ((unsigned short) (q.y))));
 			}
 			else {
 				do {
@@ -173,7 +173,7 @@ void drawLine(point p, point q, color* c)
 					}
 					temp += margin;
 					draw_dot(((unsigned short) (p.x)), ((unsigned short) (p.y)), c);
-				} while ((p.x != q.x) && (p.y != q.y));
+				} while ((((unsigned short) (p.x)) != ((unsigned short) (q.x))) && (((unsigned) (p.y)) != ((unsigned short) (q.y))));
 			}
 		}
 		else { // margin 0 
@@ -224,4 +224,115 @@ void drawPicture (list<point> drawPoint, point center, color c)
 			drawLine(prev, now, &c);
 		}
 	} while (it != end);
+}
+
+// drawing a cube at given center given width, length and height
+// cube will be seen rotate at given degree to right
+void drawCube(point center, cube data, list<color> colors) 
+{
+	color nowColor;
+	// big image
+	/*
+		7--------------6
+	   -              --
+	  1--------------2 -
+	  -			     - -
+	  -	8  center    - 5 
+	  -				 --
+	  4--------------3
+
+	*/
+	// generating dots
+	point
+	point1 = {center.x - ((data.width)/2), center.y - ((data.height)/2)},
+	point2 = {center.x + ((data.width)/2), center.y - ((data.height)/2)},
+	point3 = {center.x + ((data.width)/2), center.y + ((data.height)/2)},
+	point4 = {center.x - ((data.width)/2), center.y + ((data.height)/2)};
+
+	// drawing front
+	nowColor = colors.front();
+	colors.pop_front();
+	drawLine(point1, point2, &nowColor);
+	drawLine(point2, point3, &nowColor);
+	drawLine(point3, point4, &nowColor);
+	drawLine(point4, point1, &nowColor);
+
+	// calculating slope
+	double dx = sin((data.degree)*PI/180) * data.length;
+	double dy = cos((data.degree)*PI/180) * data.length;
+	// cout << dx << " " << dy << endl;
+	point
+		point5 = {point3.x + dx, point3.y - dy},
+		point6 = {point2.x + dx, point2.y - dy},
+		point7 = {point1.x + dx, point1.y - dy},
+		point8 = {point4.x + dx, point4.y - dy};
+
+	if (dx > 0 && dy > 0) {
+		// drawing side 1
+		nowColor = colors.front();
+		colors.pop_front();
+		drawLine(point2, point3, &nowColor);
+		drawLine(point3, point5, &nowColor);
+		drawLine(point5, point6, &nowColor);
+		drawLine(point6, point2, &nowColor);
+
+		// drawing side 2
+		nowColor = colors.front();
+		colors.pop_front();
+		drawLine(point1, point2, &nowColor);
+		drawLine(point2, point6, &nowColor);
+		drawLine(point6, point7, &nowColor);
+		drawLine(point7, point1, &nowColor);
+	}
+	else if (dx > 0 && dy < 0) {
+		// drawing side 1
+		nowColor = colors.front();
+		colors.pop_front();
+		drawLine(point2, point3, &nowColor);
+		drawLine(point3, point5, &nowColor);
+		drawLine(point5, point6, &nowColor);
+		drawLine(point6, point2, &nowColor);
+
+		// drawing side 2
+		nowColor = colors.front();
+		colors.pop_front();
+		drawLine(point4, point3, &nowColor);
+		drawLine(point3, point5, &nowColor);
+		drawLine(point5, point8, &nowColor);
+		drawLine(point8, point4, &nowColor);
+	}
+	else if (dx < 0 && dy < 0) {
+		// drawing side 1
+		nowColor = colors.front();
+		colors.pop_front();
+		drawLine(point1, point7, &nowColor);
+		drawLine(point7, point8, &nowColor);
+		drawLine(point8, point4, &nowColor);
+		drawLine(point4, point1, &nowColor);
+
+		// drawing side 2
+		nowColor = colors.front();
+		colors.pop_front();
+		drawLine(point4, point3, &nowColor);
+		drawLine(point3, point5, &nowColor);
+		drawLine(point5, point8, &nowColor);
+		drawLine(point8, point4, &nowColor);
+	}
+	else if (dx < 0 && dy > 0) {
+		// drawing side 1
+		nowColor = colors.front();
+		colors.pop_front();
+		drawLine(point1, point7, &nowColor);
+		drawLine(point7, point8, &nowColor);
+		drawLine(point8, point4, &nowColor);
+		drawLine(point4, point1, &nowColor);
+
+		// drawing side 2
+		nowColor = colors.front();
+		colors.pop_front();
+		drawLine(point1, point2, &nowColor);
+		drawLine(point2, point6, &nowColor);
+		drawLine(point6, point7, &nowColor);
+		drawLine(point7, point1, &nowColor);
+	}
 }
