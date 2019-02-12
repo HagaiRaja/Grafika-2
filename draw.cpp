@@ -1,4 +1,5 @@
-#include "draw.h"
+#include "draw.hpp"
+#include <list>
 
 // given a number and return the absolut value
 unsigned short absolute (double a)
@@ -270,47 +271,46 @@ void drawPlane(point center, color* c)
 
 }
 
-int isColored(unsigned char x, unsigned char y){
+bool isColored(unsigned char x, unsigned char y){
 	color c = getPixelColor(x,y);
 	return !(c.r == 0 && c.g == 0 && c.b == 0);
 }
 
-void rasterObject(list<point> ctPoints, color* c){
-	int size = (int) sizeof(ctPoints)/sizeof(*ctPoints);
-	unsigned short xmin = ctPoints[0].x, xmax = ctPoints[0].x;
-	unsigned short ymin = ctPoints[0].y, ymax = ctPoints[0].y;
+void rasterObject(list<point>& ctPoints, color* c){
+	unsigned short xmin, xmax, ymin, ymax;
+	xmin = ctPoints.front().x;
+	xmax = ctPoints.front().x;
+	ymin = ctPoints.front().y;
+	ymax = ctPoints.front().y;
 
-	for (list<point>::iterator it=ctPoints.begin(); it!=ctPoints.end(); ++it)
-		xmin = (*it)->x;
-	}
-	// outmost points for the envelope
-	for (unsigned char p=0; p<size; p++){
-		if (ctPoints[p].x < xmin)
-			xmin = ctPoints[p].x;
-		if (ctPoints[p].x > xmax)
-			xmax = ctPoints[p].x;
-		if (ctPoints[p].y < ymin)
-			ymin = ctPoints[p].y;
-		if (ctPoints[p].y > xmax)
-			ymax = ctPoints[p].y;
+	for (list<point>::iterator it=ctPoints.begin(); it!=ctPoints.end(); ++it){
+		if ((*it).x < xmin)
+			xmin = (*it).x;
+		if ((*it).x > xmax)
+			xmax = (*it).x;
+		if ((*it).y < ymin)
+			ymin = (*it).y;
+		if ((*it).y > ymax)
+			ymax = (*it).y;
 	}
 
 	int drawMode = 0; // mode 0 = passing by, mode 1 = coloring
-
 	// Start rastering
-	for (unsigned char j=20; j<200; j++){
-		for (unsigned char i=20; i<200; i++){
+	for (int j=ymin+1; j<=ymax; j++){
+		for (int i=xmin+1; i<=xmax; i++){
+
 			if (isColored(i,j)){
 				//check if it's (titik anomali)
 				if ((!isColored(i-1,j-1) && !isColored(i,j-1) && !isColored(i+1,j-1)) || (!isColored(i-1,j+1) && !isColored(i,j+1) && !isColored(i+1,j+1))){
-					// titik anomali -> do nothing, don't change mode
+					drawMode = drawMode;
 				}
 				else{
-					if (drawMode == 0) drawMode = 1;
+					if (drawMode == 0)
+						drawMode = 1;
 					else drawMode = 0;
 				}
 			}
-			if (drawMode == 0)
+			if (drawMode == 1)
 				draw_dot(i,j,c);
 		}
 
