@@ -1,4 +1,6 @@
-#include "draw.h"
+#include "draw.hpp"
+#include <list>
+using namespace std;
 
 int main(int argc, char const *argv[])
 {
@@ -15,25 +17,24 @@ int main(int argc, char const *argv[])
 	unsigned short translateX = 0;
 	unsigned short translateY = 0;
 
-
-	// point ctPoints[] = {{500,300},{400,200},{300,400},{300,300}};
 	list<point> ctPoints;
-	point a = {500,300}
-	point b = {400,200}
-	point c = {300,300}
-	point d = {300,400}
+	point a = {200,200};
+	point b = {160,80};
+	point c = {80,80};
+	point d = {40,200};
 
 	ctPoints.push_front(d);
 	ctPoints.push_front(c);
 	ctPoints.push_front(b);
 	ctPoints.push_front(a);
 
-	point p = {600,400};
-	point q = {600,200};
-	point p1 = {300,500};
-	point q1 = {500,500};
-	drawLine(p, q, &blue);
-	drawLine(p1, q1, &blue);
+	point p = {60,40};
+	point q = {60,20};
+	point p1 = {30,50};
+	point q1 = {50,50};
+	// drawLine(p, q, &blue);
+	// drawLine(p1, q1, &blue);
+
 	drawLine(a,b,&green);
 	drawLine(b,c,&green);
 	drawLine(c,d,&green);

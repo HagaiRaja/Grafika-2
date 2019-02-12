@@ -1,10 +1,11 @@
 /* ********** Definition of drawing any object on screen ********** */
 
-#ifndef DRAW_H
-#define DRAW_H
+#ifndef DRAW_HPP
+#define DRAW_HPP
 
 #include "frame_buffer.h"
 #include <list>
+using namespace std;
 
 typedef struct{
     unsigned short x, y;
@@ -22,5 +23,8 @@ void drawBullet(point center, color* c);
 // Drawing Plane with given center point with line color c
 void drawPlane(point center, color* c);
 
-void rasterObject(point ctPoints[], color* c);
+bool isColored(unsigned char x, unsigned char y);
+
+void rasterObject(list<point>& ctPoints, color* c);
+
 #endif

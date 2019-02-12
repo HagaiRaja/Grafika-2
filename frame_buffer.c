@@ -85,17 +85,9 @@ void draw_dot(unsigned short x, unsigned short y, color* c){
 color getPixelColor(unsigned short x, unsigned short y){
   color c;
   long int position = (x + vinfo.xoffset) * (vinfo.bits_per_pixel / 8) + (y + vinfo.yoffset) * finfo.line_length;
-
-        c.b = *(fbp + position);
-        c.g = *(fbp + position + 1);
-        c.r = *(fbp + position + 2);
-        c.a = *(fbp + position + 3);
-
-    // else {//assume 16 bit color
-    //     unsigned short b = c->b;
-    //     unsigned short g = c->g;
-    //     unsigned short r = c->r;
-    //     unsigned short int t = r<<11 | g << 5 | b;
-    //     *((unsigned short int*)(fbp + position)) = t;
-    // }
+  c.b = *(fbp + position);
+  c.g = *(fbp + position + 1);
+  c.r = *(fbp + position + 2);
+  c.a = *(fbp + position + 3);
+  return c;
 }
