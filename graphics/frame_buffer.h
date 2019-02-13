@@ -29,5 +29,7 @@ void close_buffer();
 // Turn on the cursor and shut the program
 void draw_dot(unsigned short x, unsigned short y, color* c);
 // drawing a dot on positin (x,y) with given color c
+color getPixelColor(unsigned short x, unsigned short y);
+// return color of a pixel
 
 #endif

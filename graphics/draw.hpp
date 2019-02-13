@@ -31,6 +31,14 @@ void drawPicture (list<point> drawPoint, point center, color c);
 // cube will be seen rotate at given degree to right
 void drawCube(point center, cube data, list<color> colors);
 
+// checked if on given (x,y) position there is color or not
+bool isColored(unsigned short x, unsigned short y);
+
+// give the plane a given color
+void rasterObject(list<point>& ctPoints, color* c);
+
+void fillObject(point center, color* c);
+
 
 #endif
 

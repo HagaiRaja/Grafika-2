@@ -202,11 +202,14 @@ void drawPicture (list<point> drawPoint, point center, color c)
 	point now, prev, first;
 	list<point>::iterator it = drawPoint.begin();
 	list<point>::iterator end = drawPoint.end();
+	color noColor = {254,254,254,0};
+	list<point> ctPoints;
 
 	// first point
 	now.x = center.x + (*it).x;
 	now.y = center.y + (*it).y;
 	first = now;
+	ctPoints.push_back(now);
 	do {
 		// read new point
 		++it;
@@ -214,16 +217,19 @@ void drawPicture (list<point> drawPoint, point center, color c)
 		// draw line
 		if (it == end) {
 			// end of line
-			drawLine(now, first, &c);
+			drawLine(now, first, &noColor);
 		}
 		else {
 			// updating point
 			prev = now;	
 			now.x = center.x + (*it).x;
 			now.y = center.y + (*it).y;
-			drawLine(prev, now, &c);
+			ctPoints.push_back(now);
+			drawLine(prev, now, &noColor);
 		}
 	} while (it != end);
+
+	rasterObject(ctPoints, &c);
 }
 
 // drawing a cube at given center given width, length and height
@@ -231,6 +237,7 @@ void drawPicture (list<point> drawPoint, point center, color c)
 void drawCube(point center, cube data, list<color> colors) 
 {
 	color nowColor;
+	color noColor = {254,254,254,0};
 	// big image
 	/*
 		7--------------6
@@ -248,14 +255,17 @@ void drawCube(point center, cube data, list<color> colors)
 	point2 = {center.x + ((data.width)/2), center.y - ((data.height)/2)},
 	point3 = {center.x + ((data.width)/2), center.y + ((data.height)/2)},
 	point4 = {center.x - ((data.width)/2), center.y + ((data.height)/2)};
+	list<point> ctPoints;
 
 	// drawing front
 	nowColor = colors.front();
 	colors.pop_front();
-	drawLine(point1, point2, &nowColor);
-	drawLine(point2, point3, &nowColor);
-	drawLine(point3, point4, &nowColor);
-	drawLine(point4, point1, &nowColor);
+	ctPoints.clear();
+	drawLine(point1, point2, &noColor); ctPoints.push_back(point1);
+	drawLine(point2, point3, &noColor); ctPoints.push_back(point2);
+	drawLine(point3, point4, &noColor); ctPoints.push_back(point3);
+	drawLine(point4, point1, &noColor); ctPoints.push_back(point4);
+	rasterObject(ctPoints, &nowColor);
 
 	// calculating slope
 	double dx = sin((data.degree)*PI/180) * data.length;
@@ -271,68 +281,185 @@ void drawCube(point center, cube data, list<color> colors)
 		// drawing side 1
 		nowColor = colors.front();
 		colors.pop_front();
-		drawLine(point2, point3, &nowColor);
-		drawLine(point3, point5, &nowColor);
-		drawLine(point5, point6, &nowColor);
-		drawLine(point6, point2, &nowColor);
+		ctPoints.clear();
+		drawLine(point2, point3, &noColor); ctPoints.push_back(point2);
+		drawLine(point3, point5, &noColor); ctPoints.push_back(point3);
+		drawLine(point5, point6, &noColor); ctPoints.push_back(point5);
+		drawLine(point6, point2, &noColor); ctPoints.push_back(point6);
+		rasterObject(ctPoints, &nowColor);
 
 		// drawing side 2
 		nowColor = colors.front();
 		colors.pop_front();
-		drawLine(point1, point2, &nowColor);
-		drawLine(point2, point6, &nowColor);
-		drawLine(point6, point7, &nowColor);
-		drawLine(point7, point1, &nowColor);
+		ctPoints.clear();
+		drawLine(point1, point2, &noColor); ctPoints.push_back(point1);
+		drawLine(point2, point6, &noColor); ctPoints.push_back(point2);
+		drawLine(point6, point7, &noColor); ctPoints.push_back(point6);
+		drawLine(point7, point1, &noColor); ctPoints.push_back(point7);
+		rasterObject(ctPoints, &nowColor);
 	}
 	else if (dx > 0 && dy < 0) {
 		// drawing side 1
 		nowColor = colors.front();
 		colors.pop_front();
-		drawLine(point2, point3, &nowColor);
-		drawLine(point3, point5, &nowColor);
-		drawLine(point5, point6, &nowColor);
-		drawLine(point6, point2, &nowColor);
+		ctPoints.clear();
+		drawLine(point2, point3, &noColor); ctPoints.push_back(point2);
+		drawLine(point3, point5, &noColor); ctPoints.push_back(point3);
+		drawLine(point5, point6, &noColor); ctPoints.push_back(point5);
+		drawLine(point6, point2, &noColor); ctPoints.push_back(point6);
+		rasterObject(ctPoints, &nowColor);
 
 		// drawing side 2
 		nowColor = colors.front();
 		colors.pop_front();
-		drawLine(point4, point3, &nowColor);
-		drawLine(point3, point5, &nowColor);
-		drawLine(point5, point8, &nowColor);
-		drawLine(point8, point4, &nowColor);
+		ctPoints.clear();
+		drawLine(point4, point3, &noColor); ctPoints.push_back(point4);
+		drawLine(point3, point5, &noColor); ctPoints.push_back(point3);
+		drawLine(point5, point8, &noColor); ctPoints.push_back(point5);
+		drawLine(point8, point4, &noColor); ctPoints.push_back(point8);
+		rasterObject(ctPoints, &nowColor);
 	}
 	else if (dx < 0 && dy < 0) {
 		// drawing side 1
 		nowColor = colors.front();
 		colors.pop_front();
-		drawLine(point1, point7, &nowColor);
-		drawLine(point7, point8, &nowColor);
-		drawLine(point8, point4, &nowColor);
-		drawLine(point4, point1, &nowColor);
+		ctPoints.clear();
+		drawLine(point1, point7, &noColor); ctPoints.push_back(point1);
+		drawLine(point7, point8, &noColor); ctPoints.push_back(point7);
+		drawLine(point8, point4, &noColor); ctPoints.push_back(point8);
+		drawLine(point4, point1, &noColor); ctPoints.push_back(point4);
+		rasterObject(ctPoints, &nowColor);
 
 		// drawing side 2
 		nowColor = colors.front();
 		colors.pop_front();
-		drawLine(point4, point3, &nowColor);
-		drawLine(point3, point5, &nowColor);
-		drawLine(point5, point8, &nowColor);
-		drawLine(point8, point4, &nowColor);
+		ctPoints.clear();
+		drawLine(point4, point3, &noColor); ctPoints.push_back(point4);
+		drawLine(point3, point5, &noColor); ctPoints.push_back(point3);
+		drawLine(point5, point8, &noColor); ctPoints.push_back(point5);
+		drawLine(point8, point4, &noColor); ctPoints.push_back(point8);
+		rasterObject(ctPoints, &nowColor);
 	}
 	else if (dx < 0 && dy > 0) {
 		// drawing side 1
 		nowColor = colors.front();
 		colors.pop_front();
-		drawLine(point1, point7, &nowColor);
-		drawLine(point7, point8, &nowColor);
-		drawLine(point8, point4, &nowColor);
-		drawLine(point4, point1, &nowColor);
+		ctPoints.clear();
+		drawLine(point1, point7, &noColor); ctPoints.push_back(point1);
+		drawLine(point7, point8, &noColor); ctPoints.push_back(point7);
+		drawLine(point8, point4, &noColor); ctPoints.push_back(point8);
+		drawLine(point4, point1, &noColor); ctPoints.push_back(point4);
+		rasterObject(ctPoints, &nowColor);
 
 		// drawing side 2
 		nowColor = colors.front();
 		colors.pop_front();
-		drawLine(point1, point2, &nowColor);
-		drawLine(point2, point6, &nowColor);
-		drawLine(point6, point7, &nowColor);
-		drawLine(point7, point1, &nowColor);
+		ctPoints.clear();
+		drawLine(point1, point2, &noColor); ctPoints.push_back(point1);
+		drawLine(point2, point6, &noColor); ctPoints.push_back(point2);
+		drawLine(point6, point7, &noColor); ctPoints.push_back(point6);
+		drawLine(point7, point1, &noColor); ctPoints.push_back(point7);
+		rasterObject(ctPoints, &nowColor);
+	}
+}
+
+// return true if it contain the no color
+bool isNoColor(unsigned short x, unsigned short y){
+	color c = getPixelColor(x,y);
+	return (c.r == 254 && c.g == 254 && c.b == 254);
+}
+
+// return true if it contain the color
+bool isColor(unsigned short x, unsigned short y, color * colour){
+	color c = getPixelColor(x,y);
+	return (c.r == colour->r && c.g == colour->g && c.b == colour->b);
+}
+
+// return true if all of the above color is no color
+bool aboveCheck (unsigned short i, unsigned short j) {
+	return (isNoColor(i-1,j-1) && isNoColor(i,j-1) && isNoColor(i+1,j-1)
+		&& isNoColor(i-2,j-1) && isNoColor(i+2,j-1)
+		&& isNoColor(i-3,j-1) && isNoColor(i+3,j-1)
+		&& isNoColor(i-4,j-1) && isNoColor(i+4,j-1));
+}
+
+// return true if all of the below color is no color
+bool belowCheck (unsigned short i, unsigned short j) {
+	return (isNoColor(i-1,j+1) && isNoColor(i,j+1) && isNoColor(i+1,j+1)
+		&& isNoColor(i-2,j+1) && isNoColor(i+2,j+1)
+		&& isNoColor(i-3,j+1) && isNoColor(i+3,j+1)
+		&& isNoColor(i-4,j+1) && isNoColor(i+4,j+1));
+}
+
+void rasterObject(list<point>& ctPoints, color* c){
+	unsigned short xmin, xmax, ymin, ymax;
+	xmin = ctPoints.front().x;
+	xmax = ctPoints.front().x;
+	ymin = ctPoints.front().y;
+	ymax = ctPoints.front().y;
+
+	for (list<point>::iterator it=ctPoints.begin(); it!=ctPoints.end(); ++it){
+		if ((*it).x < xmin)
+			xmin = (*it).x;
+		if ((*it).x > xmax)
+			xmax = (*it).x;
+		if ((*it).y < ymin)
+			ymin = (*it).y;
+		if ((*it).y > ymax)
+			ymax = (*it).y;
+	}
+
+	// Start rastering
+	for (int j=ymin; j<=ymax+1; j++){
+		int drawMode = 0; // mode 0 = passing by, mode 1 = coloring
+		for (int i=xmin; i<=xmax; i++){
+
+			if (isNoColor(i,j)){
+				//check if it is anomaly dots
+				bool 
+					above = aboveCheck(i,j),
+					below = belowCheck(i,j);
+				if ((!above && below) || (above && !below)){
+					drawMode = drawMode;
+				}
+				else {
+					if (drawMode == 0)
+						drawMode = 1;
+					else drawMode = 0;
+				}
+			}
+			else {
+				if (drawMode == 1) {
+					draw_dot(i,j,c);
+				}
+			}
+		}
+
+	}
+}
+
+void fillObject(point center, color* c){
+	if (isNoColor(center.x, center.y) && !isColor(center.x, center.y, c)){
+		draw_dot(center.x, center.y, c);
+	}
+	else {
+		draw_dot(center.x,center.y,c);
+		point
+		n = {center.x, center.y - 1},
+		ne = {center.x + 1, center.y - 1},
+		e = {center.x + 1, center.y},
+		se = {center.x + 1, center.y + 1},
+		s = {center.x, center.y + 1},
+		sw = {center.x - 1, center.y + 1},
+		w = {center.x - 1, center.y},
+		nw = {center.x - 1, center.y - 1};
+		fillObject(n, c);
+		fillObject(ne, c);
+		fillObject(e, c);
+		fillObject(se, c);
+		fillObject(s, c);
+		fillObject(sw, c);
+		fillObject(w, c);
+		fillObject(nw, c);
 	}
 }

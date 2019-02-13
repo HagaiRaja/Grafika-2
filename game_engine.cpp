@@ -16,7 +16,7 @@ int main(int argc, char const *argv[])
 	list<color> colours;
 	bool running = true;
 	bool exit = false;
-	cube data = {200, 50, 100, 300};
+	cube data = {200, 50, 100, -300};
 
 	point top = {200,100};
 	point bottom_center = {SCREEN_WIDTH/2,SCREEN_HEIGHT - 50};
@@ -31,11 +31,11 @@ int main(int argc, char const *argv[])
 	set_background(&black);
 
 	Canon* canon = new Canon(bottom_center, white);
-	Airplane* airplane = new Airplane(top, white, -1);
+	// Airplane* airplane = new Airplane(top, white, -1);
 	Aircube* aircube = new Aircube(top, colours, data);
 
 	ListObject.push_back(canon);
-	ListObject.push_front(airplane);
+	// ListObject.push_front(airplane);
 	ListObject.push_front(aircube);
 
 	// list<Object*>::iterator it=ListObject.begin();
@@ -68,7 +68,7 @@ int main(int argc, char const *argv[])
     	{
     		(*it)->draw();
     	}
-    	usleep(5000);
+    	usleep(30000);
     	set_background(&black);
 	}
 
