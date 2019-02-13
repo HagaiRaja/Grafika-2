@@ -397,6 +397,7 @@ void rasterObject(list<point>& ctPoints, color* c){
 	xmax = ctPoints.front().x;
 	ymin = ctPoints.front().y;
 	ymax = ctPoints.front().y;
+	color white = {255,255,255,0};
 
 	for (list<point>::iterator it=ctPoints.begin(); it!=ctPoints.end(); ++it){
 		if ((*it).x < xmin)
@@ -413,7 +414,6 @@ void rasterObject(list<point>& ctPoints, color* c){
 	for (int j=ymin; j<=ymax+1; j++){
 		int drawMode = 0; // mode 0 = passing by, mode 1 = coloring
 		for (int i=xmin; i<=xmax; i++){
-
 			if (isNoColor(i,j)){
 				//check if it is anomaly dots
 				bool 
@@ -427,6 +427,7 @@ void rasterObject(list<point>& ctPoints, color* c){
 						drawMode = 1;
 					else drawMode = 0;
 				}
+				draw_dot(i,j,&white);
 			}
 			else {
 				if (drawMode == 1) {

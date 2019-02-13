@@ -48,6 +48,23 @@ int main(int argc, char const *argv[])
 	drawLine(a, p, &white);
 	drawLine(a, q, &white);
 
+	j = {375 + translateX,200+ translateY};
+	k = {400 + translateX,250+ translateY};
+	l = {400 + translateX,350+ translateY};
+	m = {350 + translateX,400+ translateY};
+	n = {250 + translateX,400+ translateY};
+	o = {200 + translateX,350+ translateY};
+	p = {200 + translateX,250+ translateY};
+	q = {250 + translateX,200+ translateY};
+	drawLine(a, j, &white);
+	drawLine(a, k, &white);
+	drawLine(a, l, &white);
+	drawLine(a, m, &white);
+	drawLine(a, n, &white);
+	drawLine(a, o, &white);
+	drawLine(a, p, &white);
+	drawLine(a, q, &white);
+
 	close_buffer();
 	return 0;
 }

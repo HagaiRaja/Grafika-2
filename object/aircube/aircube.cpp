@@ -9,8 +9,8 @@ Aircube::Aircube()
 
 Aircube::Aircube(point _center, list<color> _colour, cube _data) : Object (_center, _colour.front(), "object/airplane/PlanePoint.txt")
 {
-	dx = 1;
-	dy = 0.2;
+	dx = 4;
+	dy = 0.4;
 	this->setData(_data);
 	this->setColors(_colour);
 	direction = true;

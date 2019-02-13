@@ -16,9 +16,9 @@ int main(int argc, char const *argv[])
 	list<color> colours;
 	bool running = true;
 	bool exit = false;
-	cube data = {200, 50, 100, -300};
+	cube data = {200, 50, 100, 45};
 
-	point top = {200,100};
+	point top = {1000,300};
 	point bottom_center = {SCREEN_WIDTH/2,SCREEN_HEIGHT - 50};
 	color black = {0,0,0,0};
 	color white = {255,255,255,0};
