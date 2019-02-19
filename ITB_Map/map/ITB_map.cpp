@@ -1,9 +1,22 @@
 #include "ITB_map.h"
+#include <list>
+#include <iostream>
+#include <fstream>
+using namespace std;
 
 color map[SCREEN_WIDTH][SCREEN_HEIGHT];
 int map_height, map_width;
 int x_left, y_left, x_right, y_right;
 int map_scale_left, map_scale_right;
+
+// helper function to load from framebuffer to map
+void loadToMap();
+
+// drawing map to the left side with given atribute
+void drawLeft();
+
+// drawing map to the right side with given attribute
+void drawRight();
 
 // making a frame from given two corner
 void makeFrame(point topLeft, point bottomRight, color* c) {
@@ -44,11 +57,13 @@ void prepareMap(unsigned short height, unsigned short width) {
 	map_scale_left = 1;
 	map_height = (int) height;
 	map_width = (int) width;
+	x_left = 0; y_left = 0; x_right = 0; y_right = 0;
 }
 
 // load the map into the screen 
 void loadMap(string filename) {
 	ifstream imageFile;
+	list<point> drawPoint;
 	imageFile.open(filename, ios::in);
 	if (imageFile.is_open())
 	{
@@ -58,6 +73,16 @@ void loadMap(string filename) {
 		point center = {0, 0};
 		do {
 			drawPoint.clear();
+
+			char temp;
+			imageFile >> temp;
+			if (temp == '#') {
+				imageFile >> temp;
+				while (temp != '#') {
+					imageFile >> temp;
+				}
+			}
+
 			imageFile >> temp_r >> temp_g >> temp_b >> temp_a;
 			c.r = (unsigned char) temp_r;
 			c.g = (unsigned char) temp_g;
@@ -69,14 +94,15 @@ void loadMap(string filename) {
 
 				// adding point
 				if (now.x != 9999 && now.x != 99999) {
-					now.x += 3;
-					now.y += 3;
 					drawPoint.push_back(now);
-					// cout << now.x << " " << now.y << endl;
 				}
 			} while (now.x != 9999 && now.x != 99999);
 
 			drawPictureNoFill(drawPoint, center, c);
+
+			loadToMap();
+			resetMap(true);
+			resetMap(false);
 		} while (now.x != 99999);
 		
 		imageFile.close();
@@ -86,7 +112,14 @@ void loadMap(string filename) {
 
 // if side is true it reset the map on the left and if false then map on the right
 void resetMap(bool side) {
-
+	if (side) {
+		map_scale_left = 1;
+		x_left = 0; y_left = 0;
+	}
+	else {
+		map_scale_right = 1;
+		x_right = 0; y_right = 0;
+	}
 }
 
 // changing center (top-left), true for the left map and false for the right
@@ -102,5 +135,27 @@ void changeMapScale(bool scale, bool side) {
 
 // refreshing all map
 void refreshMap() {
+	drawLeft();
+	drawRight();
+}
+
+void loadToMap() {
+	color temp;
+	for (int i = 0; i < map_width; ++i)
+	{
+		for (int j = 0; j < map_height; ++j)
+		{
+			map[i][j] = getPixelColor((unsigned short) i, (unsigned short) j);
+		}
+	}
+}
+
+// drawing map to the left side with given atribute
+void drawLeft() { 
+	
+}
+
+// drawing map to the right side with given attribute
+void drawRight() { 
 
 }

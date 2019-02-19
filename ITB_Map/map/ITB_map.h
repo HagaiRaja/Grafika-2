@@ -16,14 +16,14 @@ void prepareMap(unsigned short height, unsigned short width);
 // load the map into the screen 
 void loadMap(string filename);
 
-// if side is true it reset the map on the right and if false then map on the left
+// if side is true it reset the map on the left and if false then map on the right
 void resetMap(bool side);
 
-// changing center (top-left), true for the right map and false for the left
+// changing center (top-left), true for the left map and false for the right
 void changeMapOrientation(int dx, int dy, bool side);
 
 // changing scale, true for bigger and false for lesser
-// for specific side where true for the right map and false for the left
+// for specific side where true for the left map and false for the right
 void changeMapScale(bool scale, bool side);
 
 // refreshing all map

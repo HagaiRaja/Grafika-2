@@ -27,6 +27,25 @@ int main(int argc, char const *argv[])
 	drawLine(topLeft, bottomLeft, &white);
 	drawLine(bottomLeft, bottomRight, &white);
 	drawLine(bottomRight, topRight, &white);
+
+	color red = {255,0,0,0};
+	point left={1, 0}, right{490, 0};
+	// 1 help line
+	left.y = 120; right.y = 120;
+	drawLine(left, right, &red);
+
+	// 2 help line
+	left.y = 240; right.y = 240;
+	drawLine(left, right, &red);
+
+	// 3 help line
+	left.y = 360; right.y = 360;
+	drawLine(left, right, &red);
+
+	// 4 help line
+	left.y = 450; right.y = 450;
+	drawLine(left, right, &red);
+
 	// filename relative from compiler
 	loadDrawMap("sample.txt");
 	
