@@ -1,0 +1,12 @@
+100 100
+-100 100
+-100 -100
+0 -130
+100 -100
+
+9999
+
+RULE :
+Fill the dx and dy from center point
+then end the dx dy pair with a single 
+9999 like the above sample

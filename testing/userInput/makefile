@@ -1,5 +1,5 @@
 # Masukkan semua file c Anda
-OBJS = graphics/frame_buffer.c graphics/draw.cpp graphics/input.cpp object/object.cpp object/canon/canon.cpp object/bullet/bullet.cpp object/airplane/airplane.cpp object/aircube/aircube.cpp game_engine.cpp
+OBJS = ../../graphics/frame_buffer.c ../../graphics/draw.cpp ../../graphics/input.cpp ../../object/object.cpp ../../object/canon/canon.cpp ../../object/bullet/bullet.cpp ../../object/airplane/airplane.cpp ../../object/aircube/aircube.cpp userInput.cpp
 
 # frame_buffer.c draw.c object.cpp sample_object.cpp driver_sampleObject.cpp
 
