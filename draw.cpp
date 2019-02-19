@@ -317,3 +317,13 @@ void rasterObject(list<point>& ctPoints, color* c){
 	}
 
 }
+
+void BFill (unsigned char x,unsigned char y, color* c){
+	if (!isColored(x,y)){
+		draw_dot(x,y,c);
+		BFill(x+1,y,c);
+		BFill(x-1,y,c);
+		BFill(x,y+1,c);
+		BFill(x,y-1,c);
+	}
+}

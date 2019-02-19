@@ -19,7 +19,7 @@ int main(int argc, char const *argv[])
 
 	list<point> ctPoints;
 	point a = {200,200};
-	point b = {160,80};
+	point b = {160,180};
 	point c = {80,80};
 	point d = {40,200};
 
@@ -36,11 +36,12 @@ int main(int argc, char const *argv[])
 	// drawLine(p1, q1, &blue);
 
 	drawLine(a,b,&green);
-	drawLine(b,c,&green);
-	drawLine(c,d,&green);
+	drawLine(b,d,&green);
+	// drawLine(c,d,&green);
 	drawLine(d,a,&green);
+	// draw_dot(150,190,&green);
 
-	rasterObject(ctPoints, &green);
+	BFill(150,190,&green);
 
 
 	close_buffer();

@@ -27,4 +27,6 @@ bool isColored(unsigned char x, unsigned char y);
 
 void rasterObject(list<point>& ctPoints, color* c);
 
+void BFill(unsigned char x, unsigned char y, color* c);
+
 #endif
