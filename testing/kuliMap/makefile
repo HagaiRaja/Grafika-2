@@ -5,7 +5,7 @@ OBJS = ../../graphics/frame_buffer.c ../../graphics/draw.cpp drawByFile.cpp
 
 CC = g++
 # COMPILER_FLAGS = -o
-# LINKER_FLAGS = -lSDL2 -lSDL2_image -lSDL2_ttf
+LINKER_FLAGS = -std=c++11
 OBJ_NAME = image
 all : $(OBJS)
 	$(CC) $(OBJS) $(COMPILER_FLAGS) $(LINKER_FLAGS) -o $(OBJ_NAME)
