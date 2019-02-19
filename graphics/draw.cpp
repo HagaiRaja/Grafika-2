@@ -464,3 +464,37 @@ void fillObject(point center, color* c){
 		fillObject(nw, c);
 	}
 }
+
+// drawing a picture by given dots from drawPoint
+// and draw it relatively from given center point
+void drawPictureNoFill (list<point> drawPoint, point center, color c) {
+	point now, prev, first;
+	list<point>::iterator it = drawPoint.begin();
+	list<point>::iterator end = drawPoint.end();
+	color noColor = {254,254,254,0};
+	list<point> ctPoints;
+
+	// first point
+	now.x = center.x + (*it).x;
+	now.y = center.y + (*it).y;
+	first = now;
+	ctPoints.push_back(now);
+	do {
+		// read new point
+		++it;
+
+		// draw line
+		if (it == end) {
+			// end of line
+			drawLine(now, first, &noColor);
+		}
+		else {
+			// updating point
+			prev = now;	
+			now.x = center.x + (*it).x;
+			now.y = center.y + (*it).y;
+			ctPoints.push_back(now);
+			drawLine(prev, now, &noColor);
+		}
+	} while (it != end);
+}

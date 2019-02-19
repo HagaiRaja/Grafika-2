@@ -42,7 +42,18 @@ int main()
             }   
         }
         else {
-            printf("'%c' key pressed\n", x);
+            if (x == ' ') {
+                printf("space is pressed\n");
+            }
+            else if (x == '.') {
+                printf("bigger is pressed\n");
+            }
+            else if (x == ',') {
+                printf("less is pressed\n");
+            }
+            else {
+                printf("'%c' key pressed\n", x);
+            }
         } 
     }
 

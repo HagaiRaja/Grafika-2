@@ -27,6 +27,10 @@ void drawLine(point p, point q, color* c);
 // and draw it relatively from given center point
 void drawPicture (list<point> drawPoint, point center, color c);
 
+// drawing a picture by given dots from drawPoint
+// and draw it relatively from given center point
+void drawPictureNoFill (list<point> drawPoint, point center, color c);
+
 // drawing a cube at given center given width, length and height
 // cube will be seen rotate at given degree to right
 void drawCube(point center, cube data, list<color> colors);

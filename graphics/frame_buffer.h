@@ -26,6 +26,7 @@ void init ();
 void set_background(color* c);
 // Set the full screen color into given color c
 void close_buffer();
+void close_buffer_without_read();
 // Turn on the cursor and shut the program
 void draw_dot(unsigned short x, unsigned short y, color* c);
 // drawing a dot on positin (x,y) with given color c

@@ -59,6 +59,10 @@ void close_buffer()
     system("setterm -cursor on");
 }
 
+void close_buffer_without_read() {
+    system("setterm -cursor on");
+}
+
 void draw_dot(unsigned short x, unsigned short y, color* c)
 // drawing a dot on positin (x,y) with given color c
 {
