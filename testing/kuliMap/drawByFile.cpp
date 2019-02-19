@@ -46,7 +46,20 @@ void loadDrawMap(string filename)
 		point center = {0, 0};
 		do {
 			drawPoint.clear();
+
+			char temp;
+			imageFile >> temp;
+			if (temp == '#') {
+				imageFile >> temp;
+				// cout << temp;
+				while (temp != '#') {
+					imageFile >> temp;
+				}
+			}
+
 			imageFile >> temp_r >> temp_g >> temp_b >> temp_a;
+
+			// cout << temp_r << temp_g << temp_b << temp_a;
 			c.r = (unsigned char) temp_r;
 			c.g = (unsigned char) temp_g;
 			c.b = (unsigned char) temp_b;
@@ -57,8 +70,7 @@ void loadDrawMap(string filename)
 
 				// adding point
 				if (now.x != 9999 && now.x != 99999) {
-					now.x += 3;
-					now.y += 3;
+					now.x += 3; now.y += 3;
 					drawPoint.push_back(now);
 					// cout << now.x << " " << now.y << endl;
 				}

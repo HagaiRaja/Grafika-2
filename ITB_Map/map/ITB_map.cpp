@@ -53,18 +53,32 @@ void loadMap(string filename) {
 	if (imageFile.is_open())
 	{
 		point now;
-
+		color c;
+		int temp_r, temp_g, temp_b, temp_a;
+		point center = {0, 0};
 		do {
-			// read new point
-			imageFile >> now.x >> now.y;
+			drawPoint.clear();
+			imageFile >> temp_r >> temp_g >> temp_b >> temp_a;
+			c.r = (unsigned char) temp_r;
+			c.g = (unsigned char) temp_g;
+			c.b = (unsigned char) temp_b;
+			c.a = (unsigned char) temp_a;
+			do {
+				// read new point
+				imageFile >> now.x >> now.y;
 
-			// adding point
-			if (now.x != 9999) {
-				drawPoint.push_back(now);
-			}
-		} while (now.x != 9999);
+				// adding point
+				if (now.x != 9999 && now.x != 99999) {
+					now.x += 3;
+					now.y += 3;
+					drawPoint.push_back(now);
+					// cout << now.x << " " << now.y << endl;
+				}
+			} while (now.x != 9999 && now.x != 99999);
+
+			drawPictureNoFill(drawPoint, center, c);
+		} while (now.x != 99999);
 		
-
 		imageFile.close();
 	}
 	else cout << "Unable to open file";
