@@ -10,8 +10,8 @@ int main(int argc, char const *argv[])
 	prepareMap(600, 488);
 
 	while (running) {
-		running = getCommand();
 		refreshMap();
+		running = getCommand();
 	}
 	close_buffer_without_read();
 	return 0;
