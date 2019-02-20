@@ -25,12 +25,15 @@ public :
 	void setColors(list<color> i);
 	bool getDirection() const;
 	void setDirection(bool i);
+	double getDegree() const;
+	void setDegree(double i);
 
 private :
 	double dx, dy;			// x and y velocity of the sample object
 	cube data;
 	list<color> colors;
 	bool direction; 		// true means left to right, vice versa.
+	double degree;
 };
 
 #endif

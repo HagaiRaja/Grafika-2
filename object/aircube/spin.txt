@@ -1,0 +1,19 @@
+-5 60
+5 60
+5 5
+60 5
+60 -5
+5 -5
+5 -60
+-5 -60
+-5 -5
+-60 -5
+-60 5
+-5 5
+
+9999
+
+RULE :
+Fill the dx and dy from center point
+then end the dx dy pair with a single 
+9999 like the above sample

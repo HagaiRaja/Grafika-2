@@ -35,6 +35,10 @@ void drawPictureNoFill (list<point> drawPoint, point center, color c);
 // cube will be seen rotate at given degree to right
 void drawCube(point center, cube data, list<color> colors);
 
+// drawing a spinner at given center given center
+// spinner will be seen rotate at given degree to right
+void drawSpin(point center, double degree, color c);
+
 // checked if on given (x,y) position there is color or not
 bool isColored(unsigned short x, unsigned short y);
 

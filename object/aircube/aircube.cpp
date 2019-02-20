@@ -10,7 +10,7 @@ Aircube::Aircube()
 Aircube::Aircube(point _center, list<color> _colour, cube _data) : Object (_center, _colour.front(), "object/airplane/PlanePoint.txt")
 {
 	dx = 4;
-	dy = 0.4;
+	dy = 0.6;
 	this->setData(_data);
 	this->setColors(_colour);
 	direction = true;
@@ -33,11 +33,13 @@ void Aircube::update()
 	new_center.x += dx;
 	new_center.y += dy;
 	this->setCenter(new_center);
+	this->setDegree((this->getDegree()) + 5);
 }
 
 // draw the object at given center
 void Aircube::draw()
 {
+	color yellow = {255,255,0};
 	this->update();
 
 	point center = this->getCenter();
@@ -48,12 +50,13 @@ void Aircube::draw()
 	data.length /= 2;
 	data.height /= 2;
 	drawCube(center, data, this->getColors());
+	drawSpin(center, this->getDegree(), yellow);
 
 	if (this->getDirection()) {
-		center.x += ((data.width*2)*11/16);
+		center.x += ((data.width*2)*11/16*((center.y*3)/SCREEN_HEIGHT));
 	}
 	else {
-		center.x -= ((data.width*2)*11/16);
+		center.x -= ((data.width*2)*11/16*((center.y*3)/SCREEN_HEIGHT));
 	}
 	data.width /= 2;
 	data.length = data.length * 2 / 3;
@@ -110,4 +113,14 @@ bool Aircube::getDirection() const
 void Aircube::setDirection(bool i)
 {
 	direction = i;
+}
+
+double Aircube::getDegree() const
+{
+	return degree;
+}
+
+void Aircube::setDegree(double i)
+{
+	degree = i;
 }

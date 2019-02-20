@@ -1,4 +1,10 @@
 #include "draw.hpp"
+#include <iostream>
+#include <fstream>
+#include <string>
+#include <list>
+using namespace std;
+
 
 // given a number and return the absolut value
 unsigned short absolute (double a)
@@ -251,10 +257,10 @@ void drawCube(point center, cube data, list<color> colors)
 	*/
 	// generating dots
 	point
-	point1 = {center.x - ((data.width)/2), center.y - ((data.height)/2)},
-	point2 = {center.x + ((data.width)/2), center.y - ((data.height)/2)},
-	point3 = {center.x + ((data.width)/2), center.y + ((data.height)/2)},
-	point4 = {center.x - ((data.width)/2), center.y + ((data.height)/2)};
+	point1 = {center.x - (((data.width)/2) * ((center.y*3)/SCREEN_HEIGHT)), center.y - (((data.height)/2) * ((center.y*3)/SCREEN_HEIGHT))},
+	point2 = {center.x + (((data.width)/2) * ((center.y*3)/SCREEN_HEIGHT)), center.y - (((data.height)/2) * ((center.y*3)/SCREEN_HEIGHT))},
+	point3 = {center.x + (((data.width)/2) * ((center.y*3)/SCREEN_HEIGHT)), center.y + (((data.height)/2) * ((center.y*3)/SCREEN_HEIGHT))},
+	point4 = {center.x - (((data.width)/2) * ((center.y*3)/SCREEN_HEIGHT)), center.y + (((data.height)/2) * ((center.y*3)/SCREEN_HEIGHT))};
 	list<point> ctPoints;
 
 	// drawing front
@@ -268,8 +274,8 @@ void drawCube(point center, cube data, list<color> colors)
 	rasterObject(ctPoints, &nowColor);
 
 	// calculating slope
-	double dx = sin((data.degree)*PI/180) * data.length;
-	double dy = cos((data.degree)*PI/180) * data.length;
+	double dx = sin((data.degree)*PI/180) * data.length * ((center.y*3)/SCREEN_HEIGHT);
+	double dy = cos((data.degree)*PI/180) * data.length * ((center.y*3)/SCREEN_HEIGHT);
 	// cout << dx << " " << dy << endl;
 	point
 		point5 = {point3.x + dx, point3.y - dy},
@@ -497,4 +503,64 @@ void drawPictureNoFill (list<point> drawPoint, point center, color c) {
 			drawLine(prev, now, &noColor);
 		}
 	} while (it != end);
+}
+
+list<point> loadDrawPoint(string filename)
+{
+	list<point> drawPoint;
+	ifstream imageFile;
+	imageFile.open(filename, ios::in);
+	if (imageFile.is_open())
+	{
+		point now;
+
+		do {
+			// read new point
+			imageFile >> now.x >> now.y;
+
+			// adding point
+			if (now.x != 9999) {
+				drawPoint.push_back(now);
+			}
+		} while (now.x != 9999);
+		
+
+		imageFile.close();
+	}
+	else cout << "Unable to open file";
+
+	return drawPoint;
+}
+
+
+list<point> rotate(list<point> drawPoints, point center, double degree) 
+{
+	for (list<point>::iterator it=drawPoints.begin(); it!=drawPoints.end(); ++it){
+		double tempX = (*it).x, tempY = (*it).y;
+		(*it).x = tempX * cos(degree*PI/180) - tempY* sin(degree*PI/180);
+		(*it).y = tempX * sin(degree*PI/180) + tempY * cos(degree*PI/180);
+	}
+
+	return drawPoints;
+}
+
+list<point> scale(list<point> drawPoints, point center, double factor) 
+{
+	for (list<point>::iterator it=drawPoints.begin(); it!=drawPoints.end(); ++it){
+		double tempX = (*it).x, tempY = (*it).y;
+		(*it).x = tempX * factor;
+		(*it).y = tempY * factor;
+	}
+
+	return drawPoints;
+}
+
+// drawing a spinner at given center given center
+// spinner will be seen rotate at given degree to right
+void drawSpin(point center, double degree, color c) {
+	list<point> drawPoint;
+	drawPoint = loadDrawPoint("object/aircube/spin.txt");
+	list<point> temp = rotate(drawPoint, center, degree);
+	drawPoint = scale(temp, center, ((center.y*3)/SCREEN_HEIGHT));
+	drawPicture(drawPoint, center, c);
 }
