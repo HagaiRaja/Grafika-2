@@ -236,6 +236,7 @@ void drawPicture (list<point> drawPoint, point center, color c)
 	} while (it != end);
 
 	rasterObject(ctPoints, &c);
+	// BFill(center.x, center.y, &c, 0);
 }
 
 // drawing a cube at given center given width, length and height
@@ -563,4 +564,46 @@ void drawSpin(point center, double degree, color c) {
 	list<point> temp = rotate(drawPoint, center, degree);
 	drawPoint = scale(temp, center, ((center.y*3)/SCREEN_HEIGHT));
 	drawPicture(drawPoint, center, c);
+}
+
+
+// return true if it contain the color
+bool canColor(unsigned short x, unsigned short y, color * colour){
+	color c = getPixelColor(x,y);
+	return (c.r == colour->r && c.g == colour->g && c.b == colour->b) || (c.r == 254 && c.g == 254 && c.b == 254);
+}
+
+// direction
+// 0 = init, 1 from left, 2 from right, 3 from up, 4 from down
+void BFill(unsigned short x, unsigned short y, color* c, int direction) {
+	if (!canColor(x, y, c)) {
+		draw_dot(x, y, c);
+		if (direction == 0) {
+			BFill(x-1, y, c, 1);
+			BFill(x+1, y, c, 2);
+			BFill(x, y-1, c, 3);
+			BFill(x, y+1, c, 4);
+		}
+		else if (direction == 1) {
+			BFill(x-1, y, c, 1);
+			BFill(x, y-1, c, 3);
+			BFill(x, y+1, c, 4);
+		}
+		else if (direction == 2) {
+			BFill(x+1, y, c, 2);
+			BFill(x, y-1, c, 3);
+			BFill(x, y+1, c, 4);
+		}
+		else if (direction == 3) {
+			BFill(x-1, y, c, 1);
+			BFill(x+1, y, c, 2);
+			BFill(x, y-1, c, 3);
+		}
+		else if (direction == 4) {
+			BFill(x-1, y, c, 1);
+			BFill(x+1, y, c, 2);
+			BFill(x, y+1, c, 4);
+		}
+
+	}
 }

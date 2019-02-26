@@ -112,6 +112,21 @@ bool getCommand() {
             // printf("reset right is pressed\n");
             resetMap(true);
             break;
+
+            case '1':
+            // printf("bigger is pressed\n");
+            swapSee(1);
+            break;
+
+            case '2':
+            // printf("less is pressed\n");
+            swapSee(2);
+            break;
+
+            case '3':
+            // printf("reset right is pressed\n");
+            swapSee(3);
+            break;
         }
     }  
 

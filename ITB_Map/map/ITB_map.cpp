@@ -4,20 +4,26 @@
 #include <fstream>
 using namespace std;
 
-color map[SCREEN_WIDTH][SCREEN_HEIGHT];
+Map building, tree, road;
 int map_height = 600, map_width = 488;
 int x_left, y_left, x_right, y_right;
 unsigned short offset_x_left, offset_y_left, offset_x_right, offset_y_right;
 double map_scale_left, map_scale_right;
 
 // helper function to load from framebuffer to map
-void loadToMap();
+Map loadToMap();
+
+// helper function to load from filename to given map 
+Map loadMapFromFile(string filename);
 
 // drawing map to the left side with given atribute
-void drawLeft();
+void drawLeft(Map themap);
 
 // drawing map to the right side with given attribute
-void drawRight();
+void drawRight(Map themap);
+
+// red line that help user to know where he is at the left screen
+void drawWindow();
 
 // making a frame from given two corner
 void makeFrame(point topLeft, point bottomRight, color* c) {
@@ -72,10 +78,22 @@ void prepareMap(unsigned short height, unsigned short width) {
 }
 
 // load the map into the screen 
-void loadMap(string filename) {
-	// setting up backgroung color to black
-	color black = {0,0,0,0};
-	set_background(&black);
+void loadMap() {
+	string building_file = "map/building.txt";
+	string tree_file = "map/tree.txt";
+	string road_file = "map/road.txt";
+	
+	building = loadMapFromFile(building_file);
+	tree = loadMapFromFile(tree_file);
+	road = loadMapFromFile(road_file);
+}
+
+// helper function to load from filename to given map 
+Map loadMapFromFile(string filename) {
+	Map themap;
+	// setting up background color to black
+	color transparent = {1,1,1,1};
+	set_background(&transparent);
 
 	ifstream imageFile;
 	list<point> drawPoint;
@@ -114,14 +132,16 @@ void loadMap(string filename) {
 				}
 			} while (now.x != 9999 && now.x != 99999);
 
-			drawPictureNoFill(drawPoint, center, c);
+			drawPicture(drawPoint, center, c);
 
 		} while (now.x != 99999);
 		
-		loadToMap();		
+		themap = loadToMap();		
 		imageFile.close();
 	}
 	else cout << "Unable to open file";
+
+	return themap;
 }
 
 // if side is true it reset the map on the left and if false then map on the right
@@ -203,18 +223,34 @@ void changeMapScale(bool scale, bool side) {
 // refreshing all map
 void refreshMap() {
 	makeAllFrame(map_height, map_width);
-	drawLeft();
-	drawRight();
+	if (building.show) {
+		drawLeft(building);
+		drawRight(building);
+	}
+	if (tree.show) {
+		drawLeft(tree);
+		drawRight(tree);
+	}
+	if (road.show) {
+		drawLeft(road);
+		drawRight(road);
+	}
+	drawWindow();
 }
 
-void loadToMap() {
+bool isTransparent(color c) {
+	return (c.a == 1);
+}
+
+Map loadToMap() {
+	Map themap;
 	color temp = {255, 0, 0, 0};
 
 	for (int i = 0; i < map_width; ++i)
 	{
 		for (int j = 0; j < map_height; ++j)
 		{
-			map[i][j] = getPixelColor((unsigned short) i + 3, (unsigned short) j + 3);
+			themap.map[i][j] = getPixelColor((unsigned short) i + 3, (unsigned short) j + 3);
 			// temp = map[i][j];
 			// unsigned short a = 255;
 			// if (temp.r == a) {
@@ -223,37 +259,77 @@ void loadToMap() {
 			// draw_dot((unsigned short) i + 550, (unsigned short) j + 3, &temp);
 		}
 	}
+
+	return themap;
 }
 
 // drawing map to the left side with given atribute
-void drawLeft() { 
+void drawLeft(Map themap) { 
 	color temp = {255, 0, 0, 0};
 	for (int i = 0; i < map_width; ++i)
 	{
 		for (int j = 0; j < map_height; ++j)
-		{
-			temp = map[(int) ((x_left*map_scale_left)+(i/map_scale_left))]
-						[(int) ((y_left*map_scale_left)+(j/map_scale_left))];
-			draw_dot((unsigned short) i + offset_x_left, 
+		{	
+			temp = themap.map[(int) ((x_left*map_scale_left)+(i/map_scale_left))]
+					[(int) ((y_left*map_scale_left)+(j/map_scale_left))];
+
+
+			if (!isTransparent(temp)){
+				draw_dot((unsigned short) i + offset_x_left, 
 				(unsigned short) j + offset_y_left, 
 				&temp);
+
+			}
 		}
 	}
 }
 
 // drawing map to the right side with given attribute
-void drawRight() { 
+void drawRight(Map themap) { 
 	color temp = {255, 0, 0, 0};
 
 	for (int i = 0; i < map_width; ++i)
 	{
 		for (int j = 0; j < map_height; ++j)
 		{
-			temp = map[(int) ((x_right*map_scale_right)+(i/map_scale_right))]
-						[(int) ((y_right*map_scale_right)+(j/map_scale_right))];
-			draw_dot((unsigned short) i + offset_x_right, 
+			temp = themap.map[(int) ((x_right*map_scale_right)+(i/map_scale_right))]
+					[(int) ((y_right*map_scale_right)+(j/map_scale_right))];
+
+			if (!isTransparent(temp)){
+				draw_dot((unsigned short) i + offset_x_right, 
 				(unsigned short) j + offset_y_right, 
 				&temp);
+			}
 		}
 	}
+}
+
+// red line that help user to know where he is at the left screen
+void drawWindow() {
+	color red = {255,0,0,0};
+	point 
+		top = {(double) (offset_x_left + (x_right*map_scale_right)), (double) (offset_y_left + (y_right*map_scale_right))},
+		bottom = {(double) (offset_x_left + (map_width/map_scale_right) + (x_right*map_scale_right)), 
+			(double) (offset_y_left + (y_right*map_scale_right) + (map_height/map_scale_right))};
+	makeFrame(top, bottom, &red);
+}
+
+// show and hide map on a number
+// 1 = building
+// 2 = tree
+// 3 = road
+void swapSee(int map_number) {
+	switch (map_number) {
+	    case 1:
+	    building.show = !building.show;
+	    break;
+
+	    case 2:
+	    tree.show = !tree.show;
+	    break;
+
+	    case 3:
+	    road.show = !road.show;
+	    break;
+    }
 }

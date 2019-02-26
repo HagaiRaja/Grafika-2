@@ -6,7 +6,7 @@ int main(int argc, char const *argv[])
 	bool running = true;
 	init();
 
-	loadMap("map/map.txt");
+	loadMap();
 	prepareMap(600, 488);
 
 	while (running) {

@@ -46,7 +46,9 @@ bool isColored(unsigned short x, unsigned short y);
 void rasterObject(list<point>& ctPoints, color* c);
 
 void fillObject(point center, color* c);
-
+// direction
+// 0 = init, 1 from left, 2 from right, 3 from up, 4 from down
+void BFill(unsigned short x, unsigned short y, color* c, int direction);
 
 #endif
 

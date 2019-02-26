@@ -7,8 +7,8 @@ using namespace std;
 
 list<point> drawPoint;
 
-void loadDrawPoint(string filename);
-list<point> rotate(list<point> drawPoints, point center, double degree);
+void loadDrawPoints(string filename);
+list<point> rotates(list<point> drawPoints, point center, double degree);
 
 int main(int argc, char const *argv[])
 {
@@ -20,10 +20,10 @@ int main(int argc, char const *argv[])
 
 	point center = {300, 300};
 	// filename relative from compiler
-	loadDrawPoint("sample.txt");
+	loadDrawPoints("sample.txt");
 	double degree = 0;
 	while (degree < 720) {
-		list<point> temp = rotate(drawPoint, center, degree);
+		list<point> temp = rotates(drawPoint, center, degree);
 		drawPicture(temp, center, white);
 		usleep(30000);
 		set_background(&black);
@@ -34,7 +34,7 @@ int main(int argc, char const *argv[])
 	return 0;
 }
 
-void loadDrawPoint(string filename)
+void loadDrawPoints(string filename)
 {
 	ifstream imageFile;
 	imageFile.open(filename, ios::in);
@@ -59,7 +59,7 @@ void loadDrawPoint(string filename)
 }
 
 
-list<point> rotate(list<point> drawPoints, point center, double degree) 
+list<point> rotates(list<point> drawPoints, point center, double degree) 
 {
 	for (list<point>::iterator it=drawPoints.begin(); it!=drawPoints.end(); ++it){
 		double tempX = (*it).x, tempY = (*it).y;
