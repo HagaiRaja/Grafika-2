@@ -21,7 +21,7 @@ int main(int argc, char const *argv[])
 	point center = {300, 300};
 	// filename relative from compiler
 	loadDrawPoints("sample.txt");
-	double degree = 0;
+	double degree = 90;
 	while (degree < 720) {
 		list<point> temp = rotates(drawPoint, center, degree);
 		drawPicture(temp, center, white);

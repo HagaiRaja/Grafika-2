@@ -7,7 +7,7 @@ using namespace std;
 
 list<point> drawPoint;
 
-void loadDrawPoint(string filename);
+void loadDrawPoint(string filename, int i);
 
 int main(int argc, char const *argv[])
 {
@@ -22,19 +22,19 @@ int main(int argc, char const *argv[])
 
 	point center = {300, 300};
 	// filename relative from compiler
-	loadDrawPoint("sample.txt");
+	loadDrawPoint("sample.txt", 1);
 	drawPicture(drawPoint, center, green);
 
 	center = {700, 300};
 	// filename relative from compiler
-	loadDrawPoint("sample1.txt");
+	loadDrawPoint("sample1.txt", 1);
 	drawPicture(drawPoint, center, green);
 
 	close_buffer();
 	return 0;
 }
 
-void loadDrawPoint(string filename)
+void loadDrawPoint(string filename, int i)
 {
 	drawPoint.clear();
 	ifstream imageFile;

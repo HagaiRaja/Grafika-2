@@ -17,6 +17,55 @@ unsigned short absolute (double a)
 
 // Drawing line from point p to point q with given color c
 // Implementation using bresenham algorithm
+void _drawLine(point p, point q, color* c)
+{
+        // Bresenham's line algorithm
+  const bool steep = (fabs(q.y - p.y) > fabs(q.x - p.x));
+  if(steep)
+  {
+    std::swap(p.x, p.y);
+    std::swap(q.x, q.y);
+  }
+ 
+  if(p.x > q.x)
+  {
+    std::swap(p.x, q.x);
+    std::swap(p.y, q.y);
+  }
+ 
+  const float dx = q.x - p.x;
+  const float dy = fabs(q.y - p.y);
+ 
+  float error = dx / 2.0f;
+  const int ystep = (p.y < q.y) ? 1 : -1;
+  int y = (int)p.y;
+ 
+  const int maxX = (int)q.x;
+ 
+  for(int x=(int)p.x; x<maxX; x++)
+  {
+    if(steep)
+    {
+    	draw_dot(((unsigned short) (p.y)), ((unsigned short) (p.x)), c);
+        // SetPixel(y,x, color);
+    }
+    else
+    {
+    	draw_dot(((unsigned short) (p.x)), ((unsigned short) (p.y)), c);
+        // SetPixel(x,y, color);
+    }
+ 
+    error -= dy;
+    if(error < 0)
+    {
+        y += ystep;
+        error += dx;
+    }
+  }
+}
+
+// Drawing line from point p to point q with given color c
+// Implementation using bresenham algorithm
 void drawLine(point p, point q, color* c) 
 {
 	double px = p.x, py = p.y, qx = q.x, qy = q.y;
@@ -48,24 +97,24 @@ void drawLine(point p, point q, color* c)
 			if (((unsigned short) (p.y)) > ((unsigned short) (q.y))) {
 				do {
 					p.y -= 1;
-					if (temp > 1) {
+					if (temp > 1 || ((p.x == q.x + 1) && (p.y == q.y))) {
 						temp -= 1;
 						p.x -= 1;
 					}
 					temp += newMargin;
 					draw_dot(((unsigned short) (p.x)), ((unsigned short) (p.y)), c);
-				} while ((((unsigned short) (p.x)) != ((unsigned short) (q.x))) && (((unsigned) (p.y)) != ((unsigned short) (q.y))));
+				} while ((((unsigned short) (p.x)) != ((unsigned short) (q.x))) || (((unsigned) (p.y)) != ((unsigned short) (q.y))));
 			}
 			else {
 				do {
 					p.y += 1;
-					if (temp > 1) {
+					if (temp > 1 || ((p.x == q.x - 1) && (p.y == q.y))) {
 						temp -= 1;
 						p.x += 1;
 					}
 					temp += newMargin;
 					draw_dot(((unsigned short) (p.x)), ((unsigned short) (p.y)), c);
-				} while ((((unsigned short) (p.x)) != ((unsigned short) (q.x))) && (((unsigned) (p.y)) != ((unsigned short) (q.y))));
+				} while ((((unsigned short) (p.x)) != ((unsigned short) (q.x))) || (((unsigned) (p.y)) != ((unsigned short) (q.y))));
 			}
 		}
 		else if (margin < -1) {
@@ -76,24 +125,24 @@ void drawLine(point p, point q, color* c)
 			if (((unsigned short) (p.y)) > ((unsigned short) (q.y))) {
 				do {
 					p.y -= 1;
-					if (temp < -1) {
+					if (temp < -1 || ((p.x == q.x - 1) && (p.y == q.y))) {
 						temp += 1;
 						p.x += 1;
 					}
 					temp += newMargin;
 					draw_dot(((unsigned short) (p.x)), ((unsigned short) (p.y)), c);
-				} while ((((unsigned short) (p.x)) != ((unsigned short) (q.x))) && (((unsigned) (p.y)) != ((unsigned short) (q.y))));
+				} while ((((unsigned short) (p.x)) != ((unsigned short) (q.x))) || (((unsigned) (p.y)) != ((unsigned short) (q.y))));
 			}
 			else {
 				do {
 					p.y += 1;
-					if (temp < -1) {
+					if (temp < -1 || p.x == q.x + 1) {
 						temp += 1;
 						p.x -= 1;
 					}
 					temp += newMargin;
 					draw_dot(((unsigned short) (p.x)), ((unsigned short) (p.y)), c);
-				} while ((((unsigned short) (p.x)) != ((unsigned short) (q.x))) && (((unsigned) (p.y)) != ((unsigned short) (q.y))));
+				} while ((((unsigned short) (p.x)) != ((unsigned short) (q.x))) || (((unsigned) (p.y)) != ((unsigned short) (q.y))));
 			}
 		}
 		else if (margin == 1) {
@@ -135,24 +184,24 @@ void drawLine(point p, point q, color* c)
 			if (((unsigned short) (p.y)) > ((unsigned short) (q.y))) {
 				do {
 					p.x += 1;
-					if (temp < -1) {
+					if (temp < -1 || ((p.y == q.y + 1) && (p.x == q.x))) {
 						temp += 1;
 						p.y -= 1;
 					}
 					temp += margin;
 					draw_dot(((unsigned short) (p.x)), ((unsigned short) (p.y)), c);
-				} while ((((unsigned short) (p.x)) != ((unsigned short) (q.x))) && (((unsigned) (p.y)) != ((unsigned short) (q.y))));
+				} while ((((unsigned short) (p.x)) != ((unsigned short) (q.x))) || (((unsigned) (p.y)) != ((unsigned short) (q.y))));
 			}
 			else {
 				do {
 					p.x -= 1;
-					if (temp < -1) {
+					if (temp < -1 || ((p.y == q.y - 1) && (p.x == q.x))) {
 						temp += 1;
 						p.y += 1;
 					}
 					temp += margin;
 					draw_dot(((unsigned short) (p.x)), ((unsigned short) (p.y)), c);
-				} while ((((unsigned short) (p.x)) != ((unsigned short) (q.x))) && (((unsigned) (p.y)) != ((unsigned short) (q.y))));
+				} while ((((unsigned short) (p.x)) != ((unsigned short) (q.x))) || (((unsigned) (p.y)) != ((unsigned short) (q.y))));
 			}
 		}
 		else if (margin < 1 && margin > 0) {
@@ -162,24 +211,24 @@ void drawLine(point p, point q, color* c)
 			if (((unsigned short) (p.y)) > ((unsigned short) (q.y))) {
 				do {
 					p.x -= 1;
-					if (temp > 1) {
+					if (temp > 1 || ((p.y == q.y + 1) && (p.x == q.x))) {
 						temp -= 1;
 						p.y -= 1;
 					}
 					temp += margin;
 					draw_dot(((unsigned short) (p.x)), ((unsigned short) (p.y)), c);
-				} while ((((unsigned short) (p.x)) != ((unsigned short) (q.x))) && (((unsigned) (p.y)) != ((unsigned short) (q.y))));
+				} while ((((unsigned short) (p.x)) != ((unsigned short) (q.x))) || (((unsigned) (p.y)) != ((unsigned short) (q.y))));
 			}
 			else {
 				do {
 					p.x += 1;
-					if (temp > 1) {
+					if (temp > 1 || ((p.y == q.y - 1) && (p.x == q.x))) {
 						temp -= 1;
 						p.y += 1;
 					}
 					temp += margin;
 					draw_dot(((unsigned short) (p.x)), ((unsigned short) (p.y)), c);
-				} while ((((unsigned short) (p.x)) != ((unsigned short) (q.x))) && (((unsigned) (p.y)) != ((unsigned short) (q.y))));
+				} while ((((unsigned short) (p.x)) != ((unsigned short) (q.x))) || (((unsigned) (p.y)) != ((unsigned short) (q.y))));
 			}
 		}
 		else { // margin 0 
@@ -235,8 +284,8 @@ void drawPicture (list<point> drawPoint, point center, color c)
 		}
 	} while (it != end);
 
-	rasterObject(ctPoints, &c);
-	// BFill(center.x, center.y, &c, 0);
+	// rasterObject(ctPoints, &c);
+	BFill(center.x, center.y, &c, 0);
 }
 
 // drawing a cube at given center given width, length and height
